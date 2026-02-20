@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 
 const Projects = ({ language = 'pt' }) => {
   const projectsEN = [
@@ -107,7 +107,7 @@ const Projects = ({ language = 'pt' }) => {
 
           {/* Projects */}
           {projects.map((project, index) => (
-            <div key={project.id} className="mb-16 relative">
+            <div key={project.id} className="mb-8 relative">
               <div
                 className={`flex flex-col md:flex-row items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
@@ -156,15 +156,6 @@ const Projects = ({ language = 'pt' }) => {
                       >
                         <FaGithub size={20} />
                         GitHub
-                      </a>
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 border-2 border-accent-green text-accent-green px-4 py-2 rounded-lg font-semibold hover:bg-accent-green hover:text-primary-dark transition-all duration-300"
-                      >
-                        <FaExternalLinkAlt size={16} />
-                        Demo
                       </a>
                     </div>
                   </div>
