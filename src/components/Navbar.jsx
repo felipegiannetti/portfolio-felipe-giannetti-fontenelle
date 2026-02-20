@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
 
-const Navbar = ({ language, setLanguage }) => {
+const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,13 +21,15 @@ const Navbar = ({ language, setLanguage }) => {
         { id: 1, link: 'about', name: 'About Me' },
         { id: 2, link: 'projects', name: 'Projects' },
         { id: 3, link: 'experience', name: 'Experience' },
-        { id: 4, link: 'contact', name: 'Contact' },
+        { id: 4, link: 'certifications', name: 'Certifications' },
+        { id: 5, link: 'contact', name: 'Contact' },
       ]
     : [
         { id: 1, link: 'about', name: 'Sobre Mim' },
         { id: 2, link: 'projects', name: 'Projetos' },
         { id: 3, link: 'experience', name: 'Experiências' },
-        { id: 4, link: 'contact', name: 'Contato' },
+        { id: 4, link: 'certifications', name: 'Certificações' },
+        { id: 5, link: 'contact', name: 'Contato' },
       ];
 
   return (
@@ -58,6 +60,15 @@ const Navbar = ({ language, setLanguage }) => {
                 </li>
               ))}
             </ul>
+
+            {/* CV Button */}
+            <button
+              onClick={() => setShowCurriculo(true)}
+              className="flex items-center gap-2 bg-accent-green text-primary-dark px-4 py-2 rounded-lg font-semibold hover:bg-white transition-colors"
+            >
+              <FaFileAlt size={16} />
+              {language === 'en' ? 'CV' : 'CV'}
+            </button>
 
             {/* Language Toggle */}
             <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">
@@ -103,6 +114,19 @@ const Navbar = ({ language, setLanguage }) => {
                   </a>
                 </li>
               ))}
+              {/* CV Button Mobile */}
+              <li className="py-6">
+                <button
+                  onClick={() => {
+                    setShowCurriculo(true);
+                    handleClick();
+                  }}
+                  className="flex items-center gap-2 bg-accent-green text-primary-dark px-4 py-2 rounded-lg font-semibold text-lg hover:bg-white transition-colors"
+                >
+                  <FaFileAlt size={18} />
+                  {language === 'en' ? 'CV' : 'CV'}
+                </button>
+              </li>
               {/* Language Toggle Mobile */}
               <li className="py-6">
                 <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">

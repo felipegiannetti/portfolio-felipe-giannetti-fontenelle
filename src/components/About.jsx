@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes } from 'react-icons/fa';
 
-const About = ({ language }) => {
-  const [showCurriculo, setShowCurriculo] = useState(false);
+const About = ({ language, showCurriculo, setShowCurriculo }) => {
 
   const content = {
     pt: {
