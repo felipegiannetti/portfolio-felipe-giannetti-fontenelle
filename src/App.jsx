@@ -15,9 +15,9 @@ function App() {
       <Navbar language={language} setLanguage={setLanguage} setShowCurriculo={setShowCurriculo} />
       <main>
         <About language={language} showCurriculo={showCurriculo} setShowCurriculo={setShowCurriculo} />
+        <Certifications language={language} />
         <Projects language={language} />
         <Experience language={language} />
-        <Certifications language={language} />
         <Contact language={language} />
       </main>
       <footer className="bg-primary-blue py-6 text-center">
