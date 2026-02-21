@@ -42,8 +42,8 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="text-2xl font-bold">
-            <span className="text-white">Meu</span>
-            <span className="text-accent-green">Portfólio</span>
+            <span className="text-white">Felipe</span>
+            <span className="text-accent-green"> Giannetti Fontenelle</span>
           </div>
 
           {/* Desktop Menu */}
