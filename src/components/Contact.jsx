@@ -132,13 +132,13 @@ const Contact = ({ language = 'pt' }) => {
               <h4 className="text-xl font-bold text-white mb-4">{language === 'en' ? 'Contact Information' : 'Informações de Contato'}</h4>
               <div className="space-y-3 text-gray-300">
                 <p>
-                  <strong className="text-accent-green">{language === 'en' ? 'Email:' : 'E-mail:'}</strong> seuemail@exemplo.com
+                  <strong className="text-accent-green">{language === 'en' ? 'Email:' : 'E-mail:'}</strong> felipegiannettifontenelle@gmail.com
                 </p>
                 <p>
-                  <strong className="text-accent-green">{language === 'en' ? 'Phone:' : 'Telefone:'}</strong> +55 (11) 99999-9999
+                  <strong className="text-accent-green">{language === 'en' ? 'Phone:' : 'Telefone:'}</strong> +55 (31) 99990-0355
                 </p>
                 <p>
-                  <strong className="text-accent-green">{language === 'en' ? 'Location:' : 'Localização:'}</strong> São Paulo, SP - Brasil
+                  <strong className="text-accent-green">{language === 'en' ? 'Location:' : 'Localização:'}</strong> {language === 'en' ? 'Belo Horizonte, MG - Brazil' : 'Belo Horizonte, MG - Brasil'}
                 </p>
               </div>
             </div>
