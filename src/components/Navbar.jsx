@@ -41,7 +41,7 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="text-2xl font-bold">
+          <div className="text-xl font-bold">
             <span className="text-white">Felipe</span>
             <span className="text-accent-green"> Giannetti Fontenelle</span>
           </div>
@@ -53,7 +53,7 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
                 <li key={id}>
                   <a
                     href={`#${link}`}
-                    className="text-white hover:text-accent-green transition-colors duration-300 text-lg font-medium"
+                    className="text-white hover:text-accent-green transition-colors duration-300 text-base font-medium"
                   >
                     {name}
                   </a>
