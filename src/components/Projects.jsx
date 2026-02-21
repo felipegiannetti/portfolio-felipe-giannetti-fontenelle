@@ -107,7 +107,7 @@ const Projects = ({ language = 'pt' }) => {
 
           {/* Projects */}
           {projects.map((project, index) => (
-            <div key={project.id} className="mb-8 relative">
+            <div key={project.id} className="mb-4 relative">
               <div
                 className={`flex flex-col md:flex-row items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'

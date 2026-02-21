@@ -349,13 +349,12 @@ git commit -m "docs: atualiza README com instruções de deploy"
 
 <div align="center">
 
-**Desenvolvido com ❤️ por [Felipe Giannetti Fontenelle](https://github.com/felipegiannetti)**
+**Desenvolvido por [Felipe Giannetti Fontenelle](https://github.com/felipegiannetti)**
 
 📱 WhatsApp: [+55 31 999900355](https://wa.me/5531999900355)
 📧 Email: [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
 🔗 LinkedIn: [felipe-giannetti-fontenelle](https://www.linkedin.com/in/felipe-giannetti-fontenelle-095501312/)
 
-Se este projeto foi útil, considere dar uma ⭐ no GitHub!
 
 [⬆ Voltar ao topo](#-felipe-giannetti-fontenelle---portfólio-pessoal)
 

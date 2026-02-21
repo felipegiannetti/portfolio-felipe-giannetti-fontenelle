@@ -63,6 +63,16 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
         </h2>
         <div className="w-24 h-1 bg-accent-green mx-auto mb-12"></div>
 
+        <div className="flex justify-center mb-10">
+          <div className="relative z-10 rounded-full bg-primary-dark/90 p-2 shadow-2xl shadow-accent-green/30">
+            <img
+              src="/foto-perfil.jpg"
+              alt="Felipe Giannetti Fontenelle"
+              className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-accent-green"
+            />
+          </div>
+        </div>
+
         {/* Introduction */}
         <div className="max-w-4xl mx-auto mb-16">
           <p className="text-xl text-center text-gray-300 mb-6">{currentContent.intro}</p>
