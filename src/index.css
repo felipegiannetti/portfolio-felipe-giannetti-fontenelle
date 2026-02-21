@@ -9,12 +9,100 @@
   scroll-behavior: smooth;
 }
 
+html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  height: 100%;
+}
+
+body {
+  font-family: 'Share Tech Mono', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #050b16;
+  color: #e6f1ff;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(0, 229, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(0, 102, 255, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(4, 12, 26, 0.96) 0%, rgba(5, 11, 22, 0.98) 55%, rgba(7, 18, 32, 1) 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.35;
+  animation: cyber-grid-move 18s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.18), transparent 55%),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 229, 255, 0.06) 0px,
+      rgba(0, 229, 255, 0.06) 1px,
+      transparent 2px,
+      transparent 6px
+    );
+  opacity: 0.5;
+  animation: scanlines 6s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes cyber-grid-move {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(44px);
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(12px);
+  }
+}
+
+@keyframes code-rain {
+  0% {
+    transform: translateX(-90px);
+  }
+  100% {
+    transform: translateX(90px);
+  }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><rect width='240' height='240' fill='none'/><g fill='%2300e5ff' fill-opacity='0.08' font-family='Share Tech Mono, monospace' font-size='14'><text x='12' y='24'>0101 1100 0010</text><text x='24' y='48'>phishing://</text><text x='12' y='72'>ransom.exe</text><text x='36' y='96'>ssh -p 22</text><text x='12' y='120'>0xDEADBEEF</text><text x='24' y='144'>encrypt</text><text x='12' y='168'>trace --net</text><text x='36' y='192'>root@node</text><text x='12' y='216'>CVE-2026</text></g></svg>");
+  background-size: 260px 260px;
+  opacity: 0.6;
+  animation: code-rain 7s linear infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Custom scrollbar */
@@ -23,14 +111,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a1929;
+  background: #050b16;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e3a5f;
+  background: #0b1f3a;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00ff88;
+  background: #00e5ff;
 }
