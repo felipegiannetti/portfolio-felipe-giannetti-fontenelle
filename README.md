@@ -348,7 +348,4 @@ git commit -m "docs: atualiza README com instruções de deploy"
 📧 Email: [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
 🔗 LinkedIn: [felipe-giannetti-fontenelle](https://www.linkedin.com/in/felipe-giannetti-fontenelle-095501312/)
 
-
-[⬆ Voltar ao topo](#-felipe-giannetti-fontenelle---portfólio-pessoal)
-
 </div>
