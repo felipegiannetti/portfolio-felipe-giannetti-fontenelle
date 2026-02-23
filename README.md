@@ -28,6 +28,7 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 - [🔧 Instalação e Execução](#-instalação-e-execução)
 - [📂 Estrutura de Pastas](#-estrutura-de-pastas)
 - [🎥 Demonstração](#-demonstração)
+- [🧩 Wireframes](#-wireframes)
 - [🔗 Documentações Utilizadas](#-documentações-utilizadas)
 - [👥 Autores](#-autores)
 - [🤝 Contribuição](#-contribuição)
@@ -41,9 +42,6 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 🌐 **Demo Online:** [https://seu-portfolio-deploy.vercel.app](https://seu-portfolio-deploy.vercel.app)
 > Acesse a aplicação em produção hospedada na Vercel
 
-📖 **Documentação:** [GitHub Wiki](https://github.com/felipegiannetti/portifolio-lab-01/wiki)
-> Documentação técnica, guias de contribuição e FAQ
-
 📧 **Contato:** [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
 > Entre em contato via e-mail para dúvidas ou oportunidades
 
@@ -53,16 +51,7 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 
 ### 🎯 Propósito
 
-Este projeto foi desenvolvido como trabalho prático da disciplina de **Projeto de Software** do curso de **Engenharia de Software** (4º período - PUC Minas), com o objetivo de criar um portfólio profissional moderno que showcaseia habilidades de desenvolvimento web, projetos realizados e experiências profissionais.
-
-### 💡 Motivação
-
-A criação de um portfólio web profissional é essencial para:
-- **Demonstrar competências técnicas** em desenvolvimento front-end moderno
-- **Consolidar conhecimento** em React, Vite e design responsivo
-- **Apresentar projetos** de forma visual e interativa
-- **Facilitar networking** e oportunidades profissionais
-- **Praticar boas práticas** de engenharia de software em um projeto real
+Este projeto foi desenvolvido como trabalho prático da disciplina de **Laboraório de Desenvolvimento de Software** do curso de **Engenharia de Software** (4º período - PUC Minas), com o objetivo de criar um portfólio profissional moderno que mostre habilidades de desenvolvimento web, projetos realizados e experiências profissionais.
 
 ### 🎓 Contexto Acadêmico
 
@@ -71,14 +60,6 @@ A criação de um portfólio web profissional é essencial para:
 - **Instituição:** PUC Minas - Engenharia de Software
 - **Período:** 4º Período
 - **Semestre:** 2026/1
-
-### 🌍 Como Utilizar
-
-O portfólio pode ser utilizado como:
-- **Cartão de visitas digital** para recrutadores e potenciais clientes
-- **Plataforma de apresentação** de projetos em desenvolvimento
-- **Referência** para estudantes aprendendo React e Tailwind CSS
-- **Template base** para criar outros portfólios similares
 
 ---
 
@@ -94,7 +75,7 @@ O portfólio pode ser utilizado como:
 - 🛠 **Seção de Habilidades:** Showcase de tecnologias e competências principais
 - 📧 **Formulário de Contato:** Integrado com EmailJS para envio de mensagens
 - 📱 **Links de Contato Direto:** WhatsApp, Email, LinkedIn e GitHub
-- 🎨 **Design Moderno:** Paleta de cores profissional (azul escuro + verde neon)
+- 🎨 **Design Moderno:** Paleta de cores profissional 
 - ⚡ **Performance Otimizada:** Vite para build rápido e HMR instantâneo
 - 🔍 **SEO Friendly:** Estrutura semântica HTML adequada
 
@@ -262,7 +243,11 @@ portifolio-lab-01/
 │
 ├── public/                   # 📁 Arquivos estáticos servidos diretamente
 │   ├── curriculo.pdf         # 📄 CV em português
-│   └── curriculo-en.pdf      # 📄 CV em inglês
+│   ├── curriculo-en.pdf      # 📄 CV em inglês
+│   └── wireframe/            # 🧩 Imagens dos wireframes
+│       ├── 1.png             # 🖼️ Wireframe 1
+│       ├── 2.png             # 🖼️ Wireframe 2
+│       └── 3.png             # 🖼️ Wireframe 3
 │
 ├── src/                      # 📁 Código-fonte
 │   ├── App.jsx               # 🎯 Componente raiz (gerencia estado global)
@@ -303,6 +288,14 @@ portifolio-lab-01/
 | **Projetos** | Timeline visual com cards de projetos |
 | **Experiências** | Cards com experiências, skills e tecnologias |
 | **Contato** | Formulário com links sociais (LinkedIn, GitHub, WhatsApp) |
+
+---
+
+## 🧩 Wireframes
+
+![Wireframe 1](public/wireframe/1.png)
+![Wireframe 2](public/wireframe/2.png)
+![Wireframe 3](public/wireframe/3.png)
 
 ---
 
