@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding } from 'react-icons/fa';
+import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding, FaInfoCircle } from 'react-icons/fa';
 
 const AngloTooltip = ({ language }) => {
   const [show, setShow] = useState(false);
-  const text = {
-    pt: 'Mineradora global presente em mais de 40 países, líder em mineração de diamantes, platina, cobre e minério de ferro. Com sede em Londres, a Anglo American é uma das maiores empresas de mineração diversificada do mundo.',
-    en: 'Global mining company operating in over 40 countries, leader in diamonds, platinum, copper and iron ore. Headquartered in London, Anglo American is one of the world\'s largest diversified mining companies.',
+  const content = {
+    pt: {
+      badge: '🏆 Uma das maiores mineradoras do mundo',
+      text: 'Empresa global presente em mais de 40 países, líder em mineração de diamantes, platina, cobre e minério de ferro. Com sede em Londres, figura entre as maiores mineradoras do planeta.',
+    },
+    en: {
+      badge: '🏆 One of the world\'s largest mining companies',
+      text: 'Global company operating in over 40 countries, leader in diamonds, platinum, copper and iron ore. Headquartered in London, it ranks among the largest mining companies on the planet.',
+    },
   };
   return (
     <span
@@ -13,16 +19,20 @@ const AngloTooltip = ({ language }) => {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <span className="text-accent-green font-bold cursor-pointer border-b border-dashed border-accent-green/60">
+      <span className={`inline-flex items-center gap-1 text-accent-green font-bold cursor-help transition-all duration-200 border-b-2 ${show ? 'border-accent-green drop-shadow-[0_0_6px_rgba(0,229,255,0.7)]' : 'border-dashed border-accent-green/60 hover:border-accent-green hover:drop-shadow-[0_0_6px_rgba(0,229,255,0.6)]'}`}>
         Anglo American
+        <FaInfoCircle size={11} className={`transition-transform duration-200 ${show ? 'scale-125' : 'animate-pulse'}`} />
       </span>
       {show && (
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 bg-primary-blue border border-accent-green/50 rounded-lg p-3 shadow-xl pointer-events-none">
-          <span className="flex items-center gap-2 mb-1.5">
+        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-80 bg-primary-blue border border-accent-green/50 rounded-lg p-3 shadow-xl pointer-events-none">
+          <span className="flex items-center gap-2 mb-2">
             <FaBuilding className="text-accent-green flex-shrink-0" size={13} />
             <span className="text-accent-green font-bold text-xs uppercase tracking-wider">Anglo American</span>
           </span>
-          <span className="text-gray-300 text-xs leading-relaxed">{text[language]}</span>
+          <span className="block bg-accent-green/10 border border-accent-green/30 rounded-md px-2.5 py-1.5 text-accent-green font-semibold text-[11px] text-center mb-2 leading-snug">
+            {content[language].badge}
+          </span>
+          <span className="text-gray-300 text-xs leading-relaxed">{content[language].text}</span>
           {/* Arrow */}
           <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-accent-green/50"></span>
         </span>

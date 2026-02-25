@@ -187,7 +187,17 @@ const Certifications = ({ language }) => {
         const featured = certifications.filter((c) => c.featured);
         if (!featured.length) return null;
         return (
-          <div className="mb-12 flex flex-wrap justify-center gap-4">
+          <div className="mb-12">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <span className="h-px w-12 bg-accent-green/40"></span>
+              <span className="inline-flex items-center gap-1.5 text-accent-green text-[11px] font-extrabold uppercase tracking-widest">
+                <FaStar size={10} />
+                {language === 'en' ? 'Highlights' : 'Destaques'}
+                <FaStar size={10} />
+              </span>
+              <span className="h-px w-12 bg-accent-green/40"></span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4">
             {featured.map((cert) => (
               <div key={cert.id} className="relative bg-gradient-to-br from-primary-blue to-primary-dark border-2 border-accent-green rounded-xl px-5 py-4 shadow-[0_0_20px_rgba(0,229,255,0.2)] w-full max-w-[220px]">
                 {/* Badge */}
@@ -207,6 +217,7 @@ const Certifications = ({ language }) => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         );
       })()}
