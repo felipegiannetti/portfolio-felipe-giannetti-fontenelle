@@ -115,14 +115,14 @@ const Projects = ({ language = 'pt' }) => {
 
           {/* Projects */}
           {projects.map((project, index) => (
-            <div key={project.id} className="mb-4 relative">
+            <div key={project.id} className="mb-0 relative">
               <div
                 className={`flex flex-col md:flex-row items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
               >
                 {/* Content */}
-                <div className="w-full md:w-5/12 mb-8 md:mb-0">
+                <div className="w-full md:w-5/12 mb-1 md:mb-0">
                   <div className="bg-primary-dark p-6 rounded-lg shadow-xl border-2 border-primary-blue hover:border-accent-green transition-all duration-300">
                     {/* Image */}
                     <img

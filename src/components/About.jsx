@@ -62,12 +62,12 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
         {
           icon: <FaCode />,
           title: 'Área de Atuação',
-          text: 'Cibersegurança (SOC/OT) & Desenvolvimento Web',
+          text: 'Cibersegurança & Desenvolvimento de Software',
         },
         {
           icon: <FaRocket />,
           title: 'Objetivo',
-          text: 'Criar soluções tecnológicas seguras e de alto impacto',
+          text: 'Criar soluções tecnológicas seguras, inovadoras e de alto impacto com IA',
         },
       ],
     },
@@ -89,12 +89,12 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
         {
           icon: <FaCode />,
           title: 'Field of Work',
-          text: 'Cybersecurity (SOC/OT) & Web Development',
+          text: 'Cybersecurity & Software Development',
         },
         {
           icon: <FaRocket />,
           title: 'Goal',
-          text: 'Build secure, high-impact technology solutions',
+          text: 'Build secure, innovative, high-impact technology solutions with AI',
         },
       ],
     },
