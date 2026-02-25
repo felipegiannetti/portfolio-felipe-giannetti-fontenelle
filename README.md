@@ -293,6 +293,8 @@ portifolio-lab-01/
 
 ## 🧩 Wireframes
 
+Link Figma: https://www.figma.com/site/O56Td1mVCTmJ3IYauhLqmG/Wireframe-Sprint-01?node-id=0-1&t=r4tyA0axS9l3HVxz-1
+
 ![Wireframe 1](public/wireframe/1.png)
 ![Wireframe 2](public/wireframe/2.png)
 ![Wireframe 3](public/wireframe/3.png)
