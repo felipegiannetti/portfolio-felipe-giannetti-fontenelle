@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCertificate } from 'react-icons/fa';
+import { FaCertificate, FaStar } from 'react-icons/fa';
 
 const Certifications = ({ language }) => {
 
@@ -107,6 +107,8 @@ const Certifications = ({ language }) => {
       titleEN: 'Claroty Cybersecurity Analyst',
       organization: 'Claroty',
       date: 'Jan 2026',
+      featured: true,
+      featuredLabel: { pt: 'OT Security Analyst', en: 'OT Security Analyst' },
     },
     // Skillsoft / CompTIA
     {
@@ -160,6 +162,8 @@ const Certifications = ({ language }) => {
       titleEN: 'EF SET English Certificate 75/100 (C2 Proficient)',
       organization: 'EF SET',
       date: 'Set 2025',
+      featured: true,
+      featuredLabel: { pt: 'Proficiência em Inglês', en: 'Language Proficiency' },
     },
     // Huawei
     {
@@ -178,13 +182,44 @@ const Certifications = ({ language }) => {
       </h2>
       <div className="w-24 h-1 bg-accent-green mx-auto mb-12"></div>
 
-      {/* Group by organization */}
+      {/* Featured certificates */}
       {(() => {
-        const grouped = certifications.reduce((acc, cert) => {
-          if (!acc[cert.organization]) acc[cert.organization] = [];
-          acc[cert.organization].push(cert);
-          return acc;
-        }, {});
+        const featured = certifications.filter((c) => c.featured);
+        if (!featured.length) return null;
+        return (
+          <div className="mb-12 flex flex-wrap justify-center gap-4">
+            {featured.map((cert) => (
+              <div key={cert.id} className="relative bg-gradient-to-br from-primary-blue to-primary-dark border-2 border-accent-green rounded-xl px-5 py-4 shadow-[0_0_20px_rgba(0,229,255,0.2)] w-full max-w-[220px]">
+                {/* Badge */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                  <span className="inline-flex items-center gap-1 bg-accent-green text-primary-dark text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow tracking-widest uppercase">
+                    <FaStar size={8} />
+                    {language === 'en' ? cert.featuredLabel.en : cert.featuredLabel.pt}
+                  </span>
+                </div>
+                <div className="flex flex-col items-center text-center mt-2 gap-1">
+                  <FaCertificate className="text-accent-green" size={22} />
+                  <h3 className="text-xs font-extrabold text-white leading-snug">
+                    {language === 'en' ? cert.titleEN : cert.titlePT}
+                  </h3>
+                  <p className="text-accent-green font-bold text-[10px] tracking-wide uppercase">{cert.organization}</p>
+                  <p className="text-gray-400 text-[10px]">{cert.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
+
+      {/* Group by organization (excluding featured) */}
+      {(() => {
+        const grouped = certifications
+          .filter((c) => !c.featured)
+          .reduce((acc, cert) => {
+            if (!acc[cert.organization]) acc[cert.organization] = [];
+            acc[cert.organization].push(cert);
+            return acc;
+          }, {});
 
         return Object.entries(grouped).map(([org, certs]) => (
           <div key={org} className="mb-10">
