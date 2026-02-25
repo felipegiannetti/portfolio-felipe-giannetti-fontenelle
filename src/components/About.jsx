@@ -1,12 +1,46 @@
 import React, { useState } from 'react';
-import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes } from 'react-icons/fa';
+import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding } from 'react-icons/fa';
+
+const AngloTooltip = ({ language }) => {
+  const [show, setShow] = useState(false);
+  const text = {
+    pt: 'Mineradora global presente em mais de 40 países, líder em mineração de diamantes, platina, cobre e minério de ferro. Com sede em Londres, a Anglo American é uma das maiores empresas de mineração diversificada do mundo.',
+    en: 'Global mining company operating in over 40 countries, leader in diamonds, platinum, copper and iron ore. Headquartered in London, Anglo American is one of the world\'s largest diversified mining companies.',
+  };
+  return (
+    <span
+      className="relative inline-block"
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+    >
+      <span className="text-accent-green font-bold cursor-pointer border-b border-dashed border-accent-green/60">
+        Anglo American
+      </span>
+      {show && (
+        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 bg-primary-blue border border-accent-green/50 rounded-lg p-3 shadow-xl pointer-events-none">
+          <span className="flex items-center gap-2 mb-1.5">
+            <FaBuilding className="text-accent-green flex-shrink-0" size={13} />
+            <span className="text-accent-green font-bold text-xs uppercase tracking-wider">Anglo American</span>
+          </span>
+          <span className="text-gray-300 text-xs leading-relaxed">{text[language]}</span>
+          {/* Arrow */}
+          <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-accent-green/50"></span>
+        </span>
+      )}
+    </span>
+  );
+};
 
 const About = ({ language, showCurriculo, setShowCurriculo }) => {
 
   const content = {
     pt: {
       title: 'Sobre Mim',
-      intro: 'Olá! Sou estudante de Engenharia de Software na PUC Minas e Estagiário Global de Cibersegurança na Anglo American.',
+      intro: (
+        <>
+          Olá! Sou estudante de Engenharia de Software na PUC Minas e Estagiário Global de Cibersegurança na <AngloTooltip language="pt" />.
+        </>
+      ),
       description:
         'Faço parte da equipe global de Cibersegurança da Anglo American, atuando no Centro de Operações de Segurança (SOC) com foco em Tecnologia Operacional (OT). Contribuo para a detecção, análise e mitigação de ameaças cibernéticas em ativos críticos, utilizando ferramentas como Claroty. Fluente em português (nativo) e inglês (C2 – EF SET Certificado), valorizo trabalho em equipe, aprendizado contínuo e resolução prática de problemas.',
       cards: [
@@ -29,7 +63,11 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
     },
     en: {
       title: 'About Me',
-      intro: 'Hello! I am a Software Engineering student at PUC Minas and Global Cybersecurity Intern at Anglo American.',
+      intro: (
+        <>
+          Hello! I am a Software Engineering student at PUC Minas and Global Cybersecurity Intern at <AngloTooltip language="en" />.
+        </>
+      ),
       description:
         'I am part of the Global Cybersecurity team at Anglo American, working as a Security Operations Center (SOC) Intern focused on Operational Technology (OT) environments. I contribute to the detection, analysis, and mitigation of cybersecurity threats targeting critical OT assets, leveraging tools such as Claroty. Fluent in Portuguese (native) and English (C2 – EF SET Certified), I value teamwork, continuous learning, and practical problem-solving.',
       cards: [
