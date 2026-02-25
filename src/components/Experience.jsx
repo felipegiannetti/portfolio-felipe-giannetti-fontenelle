@@ -11,7 +11,7 @@ const Experience = ({ language = 'pt' }) => {
       period: 'Dec 2025 – Present',
       type: 'Internship',
       description:
-        'Part of the Global Cybersecurity team within the SOC, focused on Operational Technology (OT) environments. Supports detection, prevention, and mitigation of threats targeting critical OT assets, leveraging specialised tools such as Claroty to enhance visibility and protection.',
+        'Part of the Global Cybersecurity team within the SOC, focused on Operational Technology (OT) environments. Supporting detection, prevention, and mitigation of threats targeting critical OT assets, leveraging specialised tools such as Claroty to enhance visibility and protection.',
       color: 'bg-blue-500',
     },
     {
@@ -58,7 +58,7 @@ const Experience = ({ language = 'pt' }) => {
       period: 'Dez 2025 – Presente',
       type: 'Estágio',
       description:
-        'Integrante da equipe global de Cibersegurança, atuando no SOC com foco em ambientes de Tecnologia Operacional (OT). Apoia a detecção, prevenção e mitigação de ameaças a ativos críticos de OT, utilizando ferramentas especializadas como Claroty para aumentar a visibilidade e a proteção.',
+        'Integrante da equipe global de Cibersegurança, atuando no SOC com foco em ambientes de Tecnologia Operacional (OT). Apoiando a detecção, prevenção e mitigação de ameaças a ativos críticos de OT, utilizando ferramentas especializadas como Claroty para aumentar a visibilidade e a proteção.',
       color: 'bg-blue-500',
     },
     {
