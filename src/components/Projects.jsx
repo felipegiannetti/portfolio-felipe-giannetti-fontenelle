@@ -5,86 +5,94 @@ const Projects = ({ language = 'pt' }) => {
   const projectsEN = [
     {
       id: 1,
-      name: 'Task Management System',
+      name: 'Robot Battle – Arcade Controller',
       description:
-        'Web application for task management with creation, editing, deletion and filtering functionalities. Intuitive and responsive interface.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Task+Manager',
+        'Physical robot battle game controlled by humans via an arcade joystick and a smartphone app over Bluetooth. Each robot carries a balloon, and the goal is to pop the opponent\'s balloon first. Built with Arduino, C++ and MIT App Inventor. Highlighted project from the 1st semester of Computer Engineering at PUC Minas.',
+      technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
+      github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Robot+Battle',
       date: '2024',
     },
     {
       id: 2,
-      name: 'Digital Products E-commerce',
+      name: 'TDR Consultoria',
       description:
-        'Complete e-commerce platform with shopping cart, payment integration and administrative panel for product management.',
-      technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=E-commerce',
+        'Interdisciplinary front-end project developed for the Web Interface Development course at PUC Minas. A consultancy website with interactive forms allowing users to submit their requirements, enabling the team to deliver tailored results.',
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
+      live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=TDR+Consultoria',
       date: '2025',
     },
     {
       id: 3,
-      name: 'Fitness Monitoring Application',
+      name: 'DTI Drone Delivery System',
       description:
-        'Mobile app for tracking physical exercises, calorie counting and progress monitoring with graphs and statistics.',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Fitness+App',
+        'Complete drone delivery management system built for an urban logistics startup. Features an intelligent planning algorithm combining knapsack and nearest-neighbour heuristics to optimise routes by priority (HIGH → MEDIUM → LOW). Full RESTful backend with Spring Boot 3 and a modern Next.js 15 dashboard.',
+      technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
+      github: 'https://github.com/felipegiannetti/drone-delivery-system',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Drone+Delivery',
       date: '2025',
     },
     {
       id: 4,
-      name: 'Data Analytics Dashboard',
+      name: 'n8n Random Number Connector',
       description:
-        'Interactive dashboard for real-time data visualization with dynamic charts, advanced filters and report export.',
-      technologies: ['Vue.js', 'D3.js', 'Python', 'FastAPI', 'Docker'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Analytics+Dashboard',
-      date: '2026',
+        'Custom n8n node that wraps the Random.org API to generate truly random integers (not pseudo-random). Includes a Docker Compose environment with n8n and PostgreSQL pre-configured to load the node automatically. Built with TypeScript and published as a local npm package.',
+      technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
+      github: 'https://github.com/felipegiannetti/n8n-random-number',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=n8n+Connector',
+      date: '2025',
     },
   ];
 
   const projectsPT = [
     {
       id: 1,
-      name: 'Sistema de Gerenciamento de Tarefas',
+      name: 'Briga de Robôs – Controle Arcade',
       description:
-        'Aplicação web para gerenciamento de tarefas com funcionalidades de criação, edição, exclusão e filtragem. Interface intuitiva e responsiva.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Task+Manager',
+        'Jogo físico de batalha de robôs controlados por humanos via controle arcade e aplicativo para smartphone por Bluetooth. Cada robô possui um balão acoplado e o objetivo é estourar o balão do adversário. Desenvolvido com Arduino, C++ e MIT App Inventor. Projeto destaque do 1º semestre de Engenharia de Computação na PUC Minas.',
+      technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
+      github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Briga+de+Robos',
       date: '2024',
     },
     {
       id: 2,
-      name: 'E-commerce de Produtos Digitais',
+      name: 'TDR Consultoria',
       description:
-        'Plataforma de e-commerce completa com carrinho de compras, integração de pagamento e painel administrativo para gerenciamento de produtos.',
-      technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=E-commerce',
+        'Projeto interdisciplinar de front-end desenvolvido na disciplina de Desenvolvimento de Interfaces Web da PUC Minas. Site de consultoria com formulários interativos que permitem ao usuário descrever suas necessidades, possibilitando à equipe entregar um resultado personalizado.',
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
+      live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=TDR+Consultoria',
       date: '2025',
     },
     {
       id: 3,
-      name: 'Aplicativo de Monitoramento de Fitness',
+      name: 'DTI Drone Delivery System',
       description:
-        'App mobile para tracking de exercícios físicos, contagem de calorias e acompanhamento de progresso com gráficos e estatísticas.',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Fitness+App',
+        'Sistema completo de gerenciamento de entregas por drones para uma startup de logística urbana. Possui algoritmo inteligente de planejamento combinando heurísticas de knapsack e nearest-neighbour para otimizar rotas por prioridade (HIGH → MEDIUM → LOW). Backend RESTful com Spring Boot 3 e dashboard moderno em Next.js 15.',
+      technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
+      github: 'https://github.com/felipegiannetti/drone-delivery-system',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Drone+Delivery',
       date: '2025',
     },
     {
       id: 4,
-      name: 'Dashboard de Análise de Dados',
+      name: 'Conector Random para n8n',
       description:
-        'Dashboard interativo para visualização de dados em tempo real com gráficos dinâmicos, filtros avançados e exportação de relatórios.',
-      technologies: ['Vue.js', 'D3.js', 'Python', 'FastAPI', 'Docker'],
-      github: 'https://github.com/felipegiannetti',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Analytics+Dashboard',
-      date: '2026',
+        'Node customizado para n8n que encapsula a API do Random.org para gerar inteiros verdadeiramente aleatórios (não pseudo-aleatórios). Inclui ambiente Docker Compose com n8n e PostgreSQL já configurados para carregar o node automaticamente. Desenvolvido em TypeScript e publicado como pacote npm local.',
+      technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
+      github: 'https://github.com/felipegiannetti/n8n-random-number',
+      live: null,
+      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=n8n+Conector',
+      date: '2025',
     },
   ];
 
@@ -147,7 +155,7 @@ const Projects = ({ language = 'pt' }) => {
                     </div>
 
                     {/* Links */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-3 flex-wrap">
                       <a
                         href={project.github}
                         target="_blank"
