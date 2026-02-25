@@ -6,47 +6,47 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
   const content = {
     pt: {
       title: 'Sobre Mim',
-      intro: 'Olá! Sou um desenvolvedor de software apaixonado por tecnologia e inovação.',
+      intro: 'Olá! Sou estudante de Engenharia de Software na PUC Minas e Estagiário Global de Cibersegurança na Anglo American.',
       description:
-        'Estudante de Engenharia de Software com foco em desenvolvimento full-stack. Busco constantemente aprender novas tecnologias e aplicá-las em projetos que fazem a diferença. Tenho interesse especial em desenvolvimento web, arquitetura de software e boas práticas de programação.',
+        'Faço parte da equipe global de Cibersegurança da Anglo American, atuando no Centro de Operações de Segurança (SOC) com foco em Tecnologia Operacional (OT). Contribuo para a detecção, análise e mitigação de ameaças cibernéticas em ativos críticos, utilizando ferramentas como Claroty. Fluente em português (nativo) e inglês (C2 – EF SET Certificado), valorizo trabalho em equipe, aprendizado contínuo e resolução prática de problemas.',
       cards: [
         {
           icon: <FaGraduationCap />,
           title: 'Formação',
-          text: 'Graduando em Engenharia de Software',
+          text: 'Engenharia de Software – PUC Minas (2024–2028)',
         },
         {
           icon: <FaCode />,
           title: 'Área de Atuação',
-          text: 'Desenvolvimento Full-Stack e Web',
+          text: 'Cibersegurança (SOC/OT) & Desenvolvimento Web',
         },
         {
           icon: <FaRocket />,
           title: 'Objetivo',
-          text: 'Criar soluções inovadoras e impactantes',
+          text: 'Criar soluções tecnológicas seguras e de alto impacto',
         },
       ],
     },
     en: {
       title: 'About Me',
-      intro: 'Hello! I am a software developer passionate about technology and innovation.',
+      intro: 'Hello! I am a Software Engineering student at PUC Minas and Global Cybersecurity Intern at Anglo American.',
       description:
-        'Software Engineering student focused on full-stack development. I constantly seek to learn new technologies and apply them to projects that make a difference. I have a special interest in web development, software architecture, and programming best practices.',
+        'I am part of the Global Cybersecurity team at Anglo American, working as a Security Operations Center (SOC) Intern focused on Operational Technology (OT) environments. I contribute to the detection, analysis, and mitigation of cybersecurity threats targeting critical OT assets, leveraging tools such as Claroty. Fluent in Portuguese (native) and English (C2 – EF SET Certified), I value teamwork, continuous learning, and practical problem-solving.',
       cards: [
         {
           icon: <FaGraduationCap />,
           title: 'Education',
-          text: 'Software Engineering Undergraduate',
+          text: 'Software Engineering – PUC Minas (2024–2028)',
         },
         {
           icon: <FaCode />,
           title: 'Field of Work',
-          text: 'Full-Stack and Web Development',
+          text: 'Cybersecurity (SOC/OT) & Web Development',
         },
         {
           icon: <FaRocket />,
           title: 'Goal',
-          text: 'Create innovative and impactful solutions',
+          text: 'Build secure, high-impact technology solutions',
         },
       ],
     },

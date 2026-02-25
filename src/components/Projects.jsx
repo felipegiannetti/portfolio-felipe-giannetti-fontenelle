@@ -9,7 +9,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Web application for task management with creation, editing, deletion and filtering functionalities. Intuitive and responsive interface.',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
-      github: 'https://github.com/usuario/task-manager',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Task+Manager',
       date: '2024',
     },
@@ -19,7 +19,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Complete e-commerce platform with shopping cart, payment integration and administrative panel for product management.',
       technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
-      github: 'https://github.com/usuario/ecommerce-digital',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=E-commerce',
       date: '2025',
     },
@@ -29,7 +29,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Mobile app for tracking physical exercises, calorie counting and progress monitoring with graphs and statistics.',
       technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
-      github: 'https://github.com/usuario/fitness-tracker',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Fitness+App',
       date: '2025',
     },
@@ -39,7 +39,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Interactive dashboard for real-time data visualization with dynamic charts, advanced filters and report export.',
       technologies: ['Vue.js', 'D3.js', 'Python', 'FastAPI', 'Docker'],
-      github: 'https://github.com/usuario/analytics-dashboard',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Analytics+Dashboard',
       date: '2026',
     },
@@ -52,7 +52,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Aplicação web para gerenciamento de tarefas com funcionalidades de criação, edição, exclusão e filtragem. Interface intuitiva e responsiva.',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
-      github: 'https://github.com/usuario/task-manager',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Task+Manager',
       date: '2024',
     },
@@ -62,7 +62,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Plataforma de e-commerce completa com carrinho de compras, integração de pagamento e painel administrativo para gerenciamento de produtos.',
       technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
-      github: 'https://github.com/usuario/ecommerce-digital',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=E-commerce',
       date: '2025',
     },
@@ -72,7 +72,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'App mobile para tracking de exercícios físicos, contagem de calorias e acompanhamento de progresso com gráficos e estatísticas.',
       technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
-      github: 'https://github.com/usuario/fitness-tracker',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Fitness+App',
       date: '2025',
     },
@@ -82,7 +82,7 @@ const Projects = ({ language = 'pt' }) => {
       description:
         'Dashboard interativo para visualização de dados em tempo real com gráficos dinâmicos, filtros avançados e exportação de relatórios.',
       technologies: ['Vue.js', 'D3.js', 'Python', 'FastAPI', 'Docker'],
-      github: 'https://github.com/usuario/analytics-dashboard',
+      github: 'https://github.com/felipegiannetti',
       image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Analytics+Dashboard',
       date: '2026',
     },
