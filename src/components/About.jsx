@@ -135,7 +135,7 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
   const currentContent = content[language];
 
   return (
-    <section id="about" className="min-h-screen pt-20 bg-primary-dark">
+    <section id="about" className="min-h-screen pt-14 bg-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Title */}
         <h2 className="text-5xl font-bold text-center mb-6">

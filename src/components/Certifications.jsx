@@ -176,7 +176,7 @@ const Certifications = ({ language }) => {
   ];
 
   return (
-    <section id="certifications" className="py-16 px-4 md:px-8 max-w-6xl mx-auto">
+    <section id="certifications" className="py-10 px-4 md:px-8 max-w-6xl mx-auto">
       <h2 className="text-4xl font-bold mb-4 text-center">
         {language === 'en' ? 'Certifications' : 'Certificações'}
       </h2>

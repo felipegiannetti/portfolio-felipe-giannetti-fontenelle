@@ -98,7 +98,7 @@ const Contact = ({ language = 'pt' }) => {
   };
 
   return (
-    <section id="contact" className="min-h-screen bg-gradient-to-b from-primary-blue to-primary-dark py-20">
+    <section id="contact" className="min-h-screen bg-gradient-to-b from-primary-blue to-primary-dark py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h2 className="text-5xl font-bold text-center mb-8 text-white">{language === 'en' ? 'Contact' : 'Contato'}</h2>

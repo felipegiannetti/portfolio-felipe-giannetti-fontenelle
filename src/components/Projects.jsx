@@ -99,7 +99,7 @@ const Projects = ({ language = 'pt' }) => {
   const projects = language === 'en' ? projectsEN : projectsPT;
 
   return (
-    <section id="projects" className="min-h-screen bg-gradient-to-b from-primary-dark to-primary-blue py-20">
+    <section id="projects" className="min-h-screen bg-gradient-to-b from-primary-dark to-primary-blue py-14">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h2 className="text-5xl font-bold text-center mb-8 text-white">{language === 'en' ? 'Projects' : 'Projetos'}</h2>
