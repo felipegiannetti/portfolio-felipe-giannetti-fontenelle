@@ -138,16 +138,6 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
             {/* Language Toggle */}
             <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">
               <button
-                onClick={() => setLanguage('pt')}
-                className={`px-4 py-2 font-semibold transition-colors ${
-                  language === 'pt'
-                    ? 'bg-accent-green text-primary-dark'
-                    : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                }`}
-              >
-                PT
-              </button>
-              <button
                 onClick={() => setLanguage('en')}
                 className={`px-4 py-2 font-semibold transition-colors ${
                   language === 'en'
@@ -156,6 +146,16 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
                 }`}
               >
                 EN
+              </button>
+              <button
+                onClick={() => setLanguage('pt')}
+                className={`px-4 py-2 font-semibold transition-colors ${
+                  language === 'pt'
+                    ? 'bg-accent-green text-primary-dark'
+                    : 'bg-transparent text-accent-green hover:bg-primary-dark'
+                }`}
+              >
+                PT
               </button>
             </div>
           </div>
@@ -196,16 +196,6 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
               <li className="py-6">
                 <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">
                   <button
-                    onClick={() => setLanguage('pt')}
-                    className={`px-4 py-2 font-semibold transition-colors ${
-                      language === 'pt'
-                        ? 'bg-accent-green text-primary-dark'
-                        : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                    }`}
-                  >
-                    PT
-                  </button>
-                  <button
                     onClick={() => setLanguage('en')}
                     className={`px-4 py-2 font-semibold transition-colors ${
                       language === 'en'
@@ -214,6 +204,16 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
                     }`}
                   >
                     EN
+                  </button>
+                  <button
+                    onClick={() => setLanguage('pt')}
+                    className={`px-4 py-2 font-semibold transition-colors ${
+                      language === 'pt'
+                        ? 'bg-accent-green text-primary-dark'
+                        : 'bg-transparent text-accent-green hover:bg-primary-dark'
+                    }`}
+                  >
+                    PT
                   </button>
                 </div>
               </li>
