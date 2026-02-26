@@ -41,10 +41,9 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
     <nav
       className="fixed w-full z-50 transition-all duration-300"
       style={{
-        backgroundColor: scrolled ? '#000000' : 'rgba(5, 11, 22, 0.3)',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(0, 229, 255, 0.2)' : 'none',
-        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.7)' : 'none',
+        backgroundColor: '#05111f',
+        borderBottom: scrolled ? '1px solid rgba(0, 229, 255, 0.25)' : '1px solid rgba(0, 229, 255, 0.06)',
+        boxShadow: scrolled ? '0 2px 24px rgba(0, 0, 0, 0.8)' : 'none',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
