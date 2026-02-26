@@ -55,46 +55,33 @@ const Contact = ({ language = 'pt' }) => {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    // Configure suas credenciais do EmailJS em https://www.emailjs.com/
-    // Substitua pelos seus IDs reais
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // Para demonstração, vamos simular o envio
-    // Descomente o código abaixo quando configurar o EmailJS
-    
-    /*
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
       .then(
-        (result) => {
+        () => {
           setStatus({
             type: 'success',
-            message: 'Mensagem enviada com sucesso! Retornarei em breve.',
+            message: language === 'en'
+              ? 'Message sent successfully! I will get back to you soon.'
+              : 'Mensagem enviada com sucesso! Retornarei em breve.',
           });
           setFormData({ name: '', email: '', message: '' });
           setIsSubmitting(false);
         },
-        (error) => {
+        () => {
           setStatus({
             type: 'error',
-            message: 'Erro ao enviar mensagem. Tente novamente mais tarde.',
+            message: language === 'en'
+              ? 'Failed to send message. Please try again later.'
+              : 'Erro ao enviar mensagem. Tente novamente mais tarde.',
           });
           setIsSubmitting(false);
         }
       );
-    */
-
-    // Simulação para demonstração
-    setTimeout(() => {
-      setStatus({
-        type: 'success',
-        message: 'Mensagem enviada com sucesso! (Modo de demonstração - Configure o EmailJS para envio real)',
-      });
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitting(false);
-    }, 1500);
   };
 
   return (
@@ -217,7 +204,7 @@ const Contact = ({ language = 'pt' }) => {
                       : 'bg-red-500/20 border-2 border-red-500 text-red-300'
                   }`}
                 >
-                  {status.type === 'success' && language === 'en' ? 'Message sent successfully! I will get back to you soon.' : status.message}
+                  {status.message}
                 </div>
               )}
             </form>
