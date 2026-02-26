@@ -1,9 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
+import { FaBars, FaTimes, FaFileAlt, FaMapMarkerAlt, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 
 const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
+  const profileSummary = {
+    pt: {
+      role: 'Estagiário Global de Cibersegurança',
+      company: 'Anglo American',
+      education: 'Eng. de Software – PUC Minas',
+      location: 'Belo Horizonte, MG',
+      bio: 'Estudante apaixonado por cibersegurança, desenvolvimento de software e inovação tecnológica. Fluente em inglês (C2).',
+    },
+    en: {
+      role: 'Global Cybersecurity Intern',
+      company: 'Anglo American',
+      education: 'Software Engineering – PUC Minas',
+      location: 'Belo Horizonte, MG',
+      bio: 'Student passionate about cybersecurity, software development and technological innovation. Fluent in English (C2).',
+    },
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,9 +67,47 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="text-xl font-bold">
+          <div
+            className="relative text-xl font-bold cursor-pointer select-none"
+            onMouseEnter={() => setShowProfile(true)}
+            onMouseLeave={() => setShowProfile(false)}
+          >
             <span className="text-white">Felipe</span>
             <span className="text-accent-green"> Giannetti Fontenelle</span>
+
+            {showProfile && (
+              <div className="absolute top-full left-0 mt-3 w-72 bg-[#05111f] border border-accent-green/40 rounded-xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.7)] z-50 pointer-events-none">
+                {/* Arrow */}
+                <span className="absolute -top-2 left-6 border-4 border-transparent border-b-accent-green/40"></span>
+                {/* Photo + name */}
+                <div className="flex items-center gap-3 mb-3">
+                  <img
+                    src="/foto-perfil.jpg"
+                    alt="Felipe"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-accent-green"
+                  />
+                  <div>
+                    <p className="text-white font-bold text-sm leading-tight">Felipe Giannetti Fontenelle</p>
+                    <p className="text-accent-green text-[11px] font-semibold">{profileSummary[language].role}</p>
+                    <p className="text-gray-400 text-[11px]">{profileSummary[language].company}</p>
+                  </div>
+                </div>
+                {/* Info */}
+                <div className="flex flex-col gap-1.5 mb-3 border-t border-gray-700 pt-2">
+                  <span className="flex items-center gap-2 text-gray-300 text-xs">
+                    <FaGraduationCap className="text-accent-green flex-shrink-0" size={11} />
+                    {profileSummary[language].education}
+                  </span>
+                  <span className="flex items-center gap-2 text-gray-300 text-xs">
+                    <FaMapMarkerAlt className="text-accent-green flex-shrink-0" size={11} />
+                    {profileSummary[language].location}
+                  </span>
+                </div>
+                <p className="text-gray-400 text-[11px] leading-relaxed border-t border-gray-700 pt-2">
+                  {profileSummary[language].bio}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Desktop Menu */}
