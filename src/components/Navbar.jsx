@@ -7,11 +7,16 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+      setScrolled(scrollTop > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleClick = () => setNav(!nav);
@@ -34,9 +39,13 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-primary-blue shadow-lg' : 'bg-transparent'
-      }`}
+      className="fixed w-full z-50 transition-all duration-300"
+      style={{
+        backgroundColor: scrolled ? '#000000' : 'rgba(5, 11, 22, 0.3)',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(0, 229, 255, 0.2)' : 'none',
+        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.7)' : 'none',
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">

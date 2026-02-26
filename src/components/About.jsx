@@ -1,5 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding, FaInfoCircle, FaEye } from 'react-icons/fa';
+
+const TypewriterName = () => {
+  const fullName = 'Felipe Giannetti Fontenelle';
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    let i = 0;
+    setDisplayed('');
+    setDone(false);
+    const interval = setInterval(() => {
+      i++;
+      setDisplayed(fullName.slice(0, i));
+      if (i >= fullName.length) {
+        clearInterval(interval);
+        setDone(true);
+      }
+    }, 70);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="text-center mb-2">
+      <span className="text-4xl md:text-5xl font-extrabold text-accent-green tracking-wide">
+        {displayed}
+        {!done && (
+          <span className="inline-block w-0.5 h-10 bg-accent-green align-middle ml-1 animate-pulse" />
+        )}
+      </span>
+    </div>
+  );
+};
 
 const AngloTooltip = ({ language }) => {
   const [show, setShow] = useState(false);
@@ -106,10 +138,15 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
     <section id="about" className="min-h-screen pt-20 bg-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Title */}
-        <h2 className="text-5xl font-bold text-center mb-8">
+        <h2 className="text-5xl font-bold text-center mb-6">
           <span className="text-white">{currentContent.title}</span>
         </h2>
-        <div className="w-24 h-1 bg-accent-green mx-auto mb-12"></div>
+        <div className="w-24 h-1 bg-accent-green mx-auto mb-6"></div>
+
+        {/* Typewriter Name */}
+        <TypewriterName />
+
+        <div className="w-24 h-1 bg-accent-green/30 mx-auto mb-10"></div>
 
         <div className="flex justify-center mb-10">
           <div className="relative z-10 rounded-full bg-primary-dark/90 p-2 shadow-2xl shadow-accent-green/30">
