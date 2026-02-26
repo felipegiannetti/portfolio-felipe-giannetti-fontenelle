@@ -100,85 +100,75 @@ const Projects = ({ language = 'pt' }) => {
 
   return (
     <section id="projects" className="min-h-screen bg-gradient-to-b from-primary-dark to-primary-blue py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h2 className="text-5xl font-bold text-center mb-8 text-white">{language === 'en' ? 'Projects' : 'Projetos'}</h2>
         <div className="w-24 h-1 bg-accent-green mx-auto mb-4"></div>
-        <p className="text-center text-gray-300 mb-16 text-lg">
+        <p className="text-center text-gray-300 mb-12 text-lg">
           {language === 'en' ? 'Timeline of my projects, from oldest to newest' : 'Linha do tempo dos meus projetos, do mais antigo ao mais recente'}
         </p>
 
         {/* Timeline */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-accent-green"></div>
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent-green/50"></div>
 
-          {/* Projects */}
-          {projects.map((project, index) => (
-            <div key={project.id} className="mb-0 relative">
+          <div className="flex flex-col">
+            {projects.map((project, index) => (
               <div
-                className={`flex flex-col md:flex-row items-center ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
+                key={project.id}
+                className="relative flex flex-col md:flex-row items-center gap-0 hover:z-50"
+                style={{ marginTop: index > 0 ? '-9rem' : 0, zIndex: projects.length - index }}
               >
-                {/* Content */}
-                <div className="w-full md:w-5/12 mb-1 md:mb-0">
-                  <div className="bg-primary-dark p-6 rounded-lg shadow-xl border-2 border-primary-blue hover:border-accent-green transition-all duration-300">
+
+                {/* Card - alternates sides */}
+                <div className={`w-full md:w-5/12 ${index % 2 !== 0 ? 'md:order-3' : ''}`}>
+                  <div className="bg-primary-dark border border-gray-700 hover:border-accent-green rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-[0_0_18px_rgba(0,229,255,0.15)]">
                     {/* Image */}
                     <img
                       src={project.image}
                       alt={project.name}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
+                      className="w-full h-32 object-cover"
                     />
-
-                    {/* Date */}
-                    <span className="inline-block bg-accent-green text-primary-dark px-3 py-1 rounded-full text-sm font-bold mb-3">
-                      {project.date}
-                    </span>
-
-                    {/* Title */}
-                    <h3 className="text-2xl font-bold text-white mb-3">{project.name}</h3>
-
-                    {/* Description */}
-                    <p className="text-gray-300 mb-4">{project.description}</p>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="bg-primary-blue text-accent-green px-3 py-1 rounded-full text-sm font-semibold"
-                        >
-                          {tech}
+                    {/* Content */}
+                    <div className="p-4 flex flex-col gap-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="text-sm font-bold text-white leading-snug">{project.name}</h3>
+                        <span className="flex-shrink-0 bg-accent-green text-primary-dark px-2 py-0.5 rounded-full text-xs font-bold">
+                          {project.date}
                         </span>
-                      ))}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex gap-3 flex-wrap">
+                      </div>
+                      <p className="text-gray-400 text-xs leading-relaxed">{project.description}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {project.technologies.map((tech, idx) => (
+                          <span key={idx} className="bg-primary-blue text-accent-green px-2 py-0.5 rounded-full text-[10px] font-semibold border border-accent-green/20">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-accent-green text-primary-dark px-4 py-2 rounded-lg font-semibold hover:bg-white transition-colors duration-300"
+                        className="inline-flex items-center gap-1.5 bg-accent-green text-primary-dark px-3 py-1 rounded-lg text-xs font-bold hover:bg-white transition-colors duration-300 self-start mt-1"
                       >
-                        <FaGithub size={20} />
+                        <FaGithub size={13} />
                         GitHub
                       </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Timeline Dot */}
-                <div className="hidden md:flex w-2/12 justify-center">
-                  <div className="w-6 h-6 bg-accent-green rounded-full border-4 border-primary-dark z-10"></div>
+                {/* Dot */}
+                <div className="hidden md:flex w-2/12 justify-center order-2 z-10">
+                  <div className="w-4 h-4 bg-accent-green rounded-full border-4 border-primary-dark shadow-[0_0_8px_rgba(0,229,255,0.6)]"></div>
                 </div>
 
                 {/* Spacer */}
-                <div className="hidden md:block w-5/12"></div>
+                <div className={`hidden md:block w-5/12 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-3'}`}></div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
