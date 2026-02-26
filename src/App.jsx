@@ -7,7 +7,7 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 
 function App() {
-  const [language, setLanguage] = useState('pt');
+  const [language, setLanguage] = useState('en');
   const [showCurriculo, setShowCurriculo] = useState(false);
 
   return (
