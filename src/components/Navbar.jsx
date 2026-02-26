@@ -115,7 +115,7 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
             onMouseLeave={handleMouseLeave}
           >
             {/* FGF SVG Logo */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" className="flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" className="logo-fgf flex-shrink-0">
               <rect width="64" height="64" rx="12" fill="#0b1f3a"/>
               <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="#00e5ff" strokeWidth="2"/>
               <text
