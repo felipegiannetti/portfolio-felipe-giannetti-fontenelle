@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding, FaInfoCircle } from 'react-icons/fa';
+import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaTimes, FaBuilding, FaInfoCircle, FaEye } from 'react-icons/fa';
 
 const AngloTooltip = ({ language }) => {
   const [show, setShow] = useState(false);
@@ -67,7 +67,7 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
         {
           icon: <FaRocket />,
           title: 'Objetivo',
-          text: 'Criar soluções tecnológicas seguras, inovadoras e de alto impacto com IA',
+          text: 'Criar soluções tecnológicas seguras, inovadoras e de alto impacto',
         },
       ],
     },
@@ -94,7 +94,7 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
         {
           icon: <FaRocket />,
           title: 'Goal',
-          text: 'Build secure, innovative, high-impact technology solutions with AI',
+          text: 'Build secure, innovative, high-impact technology solutions',
         },
       ],
     },
@@ -156,7 +156,7 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
               onClick={() => setShowCurriculo(true)}
               className="flex items-center gap-3 bg-primary-dark text-accent-green px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-blue transition-all duration-300 border-2 border-primary-dark hover:border-white"
             >
-              <FaDownload size={24} />
+              <FaEye size={24} />
               {language === 'en' ? 'View Resume' : 'Visualizar CV'}
             </button>
           </div>
@@ -178,7 +178,7 @@ const About = ({ language, showCurriculo, setShowCurriculo }) => {
               </div>
 
               {/* PDF Viewer */}
-              <div className="flex-1 overflow-auto">
+              <div className="flex-1 overflow-hidden">
                 <iframe
                   src={language === 'pt' ? '/curriculo.pdf' : '/curriculo-en.pdf'}
                   width="100%"

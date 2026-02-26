@@ -1,5 +1,9 @@
 import React from 'react';
-import { FaBriefcase, FaCode, FaUsers, FaTrophy } from 'react-icons/fa';
+import { FaBriefcase, FaCode, FaUsers, FaTrophy, FaJava } from 'react-icons/fa';
+import {
+  SiJavascript, SiPython, SiReact,
+  SiHtml5, SiCss3, SiBootstrap, SiTailwindcss, SiSpringboot, SiGithub,
+} from 'react-icons/si';
 
 const Experience = ({ language = 'pt' }) => {
   const experiencesEN = [
@@ -140,23 +144,66 @@ const Experience = ({ language = 'pt' }) => {
 
         {/* Skills Section */}
         <div className="mt-20">
-          <h3 className="text-3xl font-bold text-center mb-8 text-white">
+          <h3 className="text-3xl font-bold text-center mb-4 text-white">
             {language === 'en' ? 'Main Skills' : 'Principais Habilidades'}
           </h3>
+          <div className="w-16 h-1 bg-accent-green mx-auto mb-12"></div>
+
+          {/* Programming Languages */}
+          <h4 className="text-lg font-bold text-accent-green uppercase tracking-widest text-center mb-6">
+            {language === 'en' ? 'Programming Languages & Frameworks' : 'Linguagens & Frameworks'}
+          </h4>
+          {(() => {
+            const levels = {
+              pt: { avancado: 'Avançado', intermediario: 'Intermediário', iniciante: 'Iniciante' },
+              en: { avancado: 'Advanced', intermediario: 'Intermediate', iniciante: 'Beginner' },
+            };
+            const l = levels[language];
+            const langs = [
+              { icon: <FaJava size={40} />, color: '#F89820', name: 'Java', level: l.avancado, pct: 90 },
+              { icon: <SiSpringboot size={40} />, color: '#6DB33F', name: 'Spring Boot', level: l.avancado, pct: 88 },
+              { icon: <SiJavascript size={40} />, color: '#F7DF1E', name: 'JavaScript', level: l.avancado, pct: 85 },
+              { icon: <SiHtml5 size={40} />, color: '#E34F26', name: 'HTML5', level: l.avancado, pct: 85 },
+              { icon: <SiCss3 size={40} />, color: '#1572B6', name: 'CSS3', level: l.avancado, pct: 85 },
+              { icon: <SiBootstrap size={40} />, color: '#7952B3', name: 'Bootstrap', level: l.avancado, pct: 85 },
+              { icon: <SiTailwindcss size={40} />, color: '#06B6D4', name: 'Tailwind CSS', level: l.avancado, pct: 85 },
+              { icon: <SiGithub size={40} />, color: '#FFFFFF', name: 'GitHub', level: l.avancado, pct: 85 },
+              { icon: <SiReact size={40} />, color: '#61DAFB', name: 'React', level: l.intermediario, pct: 60 },
+              { icon: <span className="font-black text-4xl leading-none" style={{ color: '#A8B9CC' }}>C</span>, color: '#A8B9CC', name: 'C', level: l.intermediario, pct: 55 },
+              { icon: <SiPython size={40} />, color: '#3776AB', name: 'Python', level: l.iniciante, pct: 30 },
+            ];
+            return (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-14">
+                {langs.map((lang, i) => (
+                  <div
+                    key={i}
+                    className="bg-primary-blue border border-gray-700 hover:border-accent-green transition-all duration-300 rounded-xl p-4 flex flex-col items-center gap-2"
+                  >
+                    <span style={{ color: lang.color }}>{lang.icon}</span>
+                    <span className="text-white font-bold text-sm text-center">{lang.name}</span>
+                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full"
+                        style={{ width: `${lang.pct}%`, background: 'linear-gradient(to right, #00e5ff, #0b6fff)' }}
+                      ></div>
+                    </div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-gray-400">{lang.level}</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
+          {/* Other Skills */}
+          <h4 className="text-lg font-bold text-accent-green uppercase tracking-widest text-center mb-6">
+            {language === 'en' ? 'Other Skills' : 'Outras Habilidades'}
+          </h4>
           <div className="flex flex-wrap justify-center gap-4">
             {[
               'Cybersecurity',
               'SOC / OT Security',
               'Active Directory',
               'Claroty',
-              'JavaScript',
-              'Java',
-              'Python',
-              'C',
-              'HTML / CSS',
-              'Bootstrap',
-              'React',
-              'Git / GitHub',
               'Networking',
               'Cryptography',
               'UI/UX',
