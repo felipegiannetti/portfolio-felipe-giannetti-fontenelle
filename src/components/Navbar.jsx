@@ -1,10 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaBars, FaTimes, FaFileAlt, FaMapMarkerAlt, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 
 const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [typedName, setTypedName] = useState('');
+  const typingRef = useRef(null);
+  const isHovered = useRef(false);
+  const currentLengthRef = useRef(0);
+  const fullName = 'Felipe Giannetti Fontenelle';
+
+  const startTyping = () => {
+    clearInterval(typingRef.current);
+    currentLengthRef.current = 0;
+    setTypedName('');
+    typingRef.current = setInterval(() => {
+      currentLengthRef.current++;
+      setTypedName(fullName.slice(0, currentLengthRef.current));
+      if (currentLengthRef.current >= fullName.length) {
+        clearInterval(typingRef.current);
+      }
+    }, 45);
+  };
+
+  const startErasing = () => {
+    clearInterval(typingRef.current);
+    typingRef.current = setInterval(() => {
+      currentLengthRef.current--;
+      setTypedName(fullName.slice(0, currentLengthRef.current));
+      if (currentLengthRef.current <= 0) {
+        clearInterval(typingRef.current);
+        setShowProfile(false);
+      }
+    }, 30);
+  };
+
+  const handleMouseEnter = () => {
+    isHovered.current = true;
+    setShowProfile(true);
+    startTyping();
+  };
+
+  const handleMouseLeave = () => {
+    isHovered.current = false;
+    startErasing();
+  };
 
   const profileSummary = {
     pt: {
@@ -69,12 +110,33 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div
-            className="relative text-xl font-bold cursor-pointer select-none"
-            onMouseEnter={() => setShowProfile(true)}
-            onMouseLeave={() => setShowProfile(false)}
+            className="relative flex items-center gap-3 cursor-pointer select-none"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <span className="text-white">Felipe</span>
-            <span className="text-accent-green"> Giannetti Fontenelle</span>
+            {/* FGF SVG Logo */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" className="flex-shrink-0">
+              <rect width="64" height="64" rx="12" fill="#0b1f3a"/>
+              <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="#00e5ff" strokeWidth="2"/>
+              <text
+                x="32" y="44"
+                textAnchor="middle"
+                fontFamily="monospace"
+                fontSize="22"
+                fontWeight="bold"
+                letterSpacing="1"
+                fill="#00e5ff"
+              >FGF</text>
+            </svg>
+
+            {/* Typed name */}
+            {typedName && (
+              <span className="text-xl font-bold whitespace-nowrap overflow-hidden">
+                <span className="text-white">{typedName.slice(0, 6)}</span>
+                <span className="text-accent-green">{typedName.slice(6)}</span>
+                <span className="inline-block w-0.5 h-5 bg-accent-green ml-0.5 align-middle animate-pulse" />
+              </span>
+            )}
 
             {showProfile && (
               <div className="absolute top-full left-0 mt-3 w-72 bg-[#05111f] border border-accent-green/40 rounded-xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.7)] z-50 pointer-events-none">

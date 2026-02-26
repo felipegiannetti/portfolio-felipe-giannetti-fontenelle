@@ -12,6 +12,11 @@ const Contact = ({ language = 'pt' }) => {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const showStatus = (type, message) => {
+    setStatus({ type, message });
+    setTimeout(() => setStatus({ type: '', message: '' }), 15000);
+  };
+
   const socialLinks = [
     {
       id: 1,
@@ -63,22 +68,22 @@ const Contact = ({ language = 'pt' }) => {
       .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
       .then(
         () => {
-          setStatus({
-            type: 'success',
-            message: language === 'en'
+          showStatus(
+            'success',
+            language === 'en'
               ? 'Message sent successfully! I will get back to you soon.'
-              : 'Mensagem enviada com sucesso! Retornarei em breve.',
-          });
+              : 'Mensagem enviada com sucesso! Retornarei em breve.'
+          );
           setFormData({ name: '', email: '', message: '' });
           setIsSubmitting(false);
         },
         () => {
-          setStatus({
-            type: 'error',
-            message: language === 'en'
+          showStatus(
+            'error',
+            language === 'en'
               ? 'Failed to send message. Please try again later.'
-              : 'Erro ao enviar mensagem. Tente novamente mais tarde.',
-          });
+              : 'Erro ao enviar mensagem. Tente novamente mais tarde.'
+          );
           setIsSubmitting(false);
         }
       );
