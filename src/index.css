@@ -9,7 +9,12 @@
   scroll-behavior: smooth;
 }
 
-html,
+html {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 body {
   height: 100%;
   overflow-x: hidden;

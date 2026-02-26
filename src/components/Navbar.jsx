@@ -57,8 +57,9 @@ const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
 
   return (
     <nav
-      className="fixed w-full z-50 transition-all duration-300"
+      className="fixed top-0 left-0 z-50 transition-all duration-300"
       style={{
+        width: 'calc(100% - (100vw - 100%))',
         backgroundColor: '#05111f',
         borderBottom: scrolled ? '1px solid rgba(0, 229, 255, 0.25)' : '1px solid rgba(0, 229, 255, 0.06)',
         boxShadow: scrolled ? '0 2px 24px rgba(0, 0, 0, 0.8)' : 'none',
