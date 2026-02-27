@@ -234,12 +234,16 @@ yarn preview
 
 ```
 portifolio-lab-01/
+├── .env                      # 🔒 Variáveis de ambiente (não versionado)
 ├── .env.example              # 🧩 Exemplo de variáveis de ambiente
-├── .env.local                # 🔒 Variáveis SENSÍVEIS (não versionado)
 ├── .gitignore                # 🧹 Arquivos ignorados pelo Git
 ├── README.md                 # 📘 Documentação principal
+├── index.html                # 📄 HTML raiz
 ├── package.json              # 📦 Dependências e scripts
 ├── package-lock.json         # 🔒 Lock file das dependências
+├── vite.config.js            # ⚙️ Configuração do Vite
+├── tailwind.config.js        # 🎨 Configuração do Tailwind
+└── postcss.config.js         # 🛠 Configuração do PostCSS
 │
 ├── public/                   # 📁 Arquivos estáticos servidos diretamente
 │   ├── curriculo.pdf         # 📄 CV em português
@@ -247,28 +251,26 @@ portifolio-lab-01/
 │   ├── favicon.svg           # 🖼️ Ícone da aplicação
 │   ├── foto-perfil.jpg       # 🖼️ Foto de perfil
 │   ├── projects/             # 📁 Imagens dos projetos
+│   │   ├── drone.png         # 🖼️ DTI Drone Delivery System
+│   │   ├── n8n.png           # 🖼️ n8n Random Number Connector
+│   │   └── robo.png          # 🖼️ Robot Battle
 │   └── wireframe/            # 🧩 Imagens dos wireframes
 │       ├── 1.png             # 🖼️ Wireframe 1
 │       ├── 2.png             # 🖼️ Wireframe 2
 │       └── 3.png             # 🖼️ Wireframe 3
 │
-├── src/                      # 📁 Código-fonte
-│   ├── App.jsx               # 🎯 Componente raiz (gerencia estado global)
-│   ├── main.jsx              # 🚀 Ponto de entrada
-│   ├── index.css             # 🎨 Estilos globais + Tailwind directives
-│   │
-│   └── components/           # 🧱 Componentes reutilizáveis
-│       ├── Navbar.jsx        # 🔝 Navegação principal
-│       ├── About.jsx         # 👤 Seção Sobre Mim
-│       ├── Certifications.jsx # 🎓 Certificações
-│       ├── Projects.jsx      # 📊 Timeline de Projetos
-│       ├── Experience.jsx    # 💼 Experiências Profissionais
-│       └── Contact.jsx       # 📧 Formulário de Contato
-│
-├── vite.config.js            # ⚙️ Configuração do Vite
-├── tailwind.config.js        # 🎨 Configuração do Tailwind
-├── postcss.config.js         # 🛠 Configuração do PostCSS
-└── index.html                # 📄 HTML raiz
+└── src/                      # 📁 Código-fonte
+    ├── App.jsx               # 🎯 Componente raiz (gerencia estado global)
+    ├── main.jsx              # 🚀 Ponto de entrada
+    ├── index.css             # 🎨 Estilos globais + Tailwind directives
+    │
+    └── components/           # 🧱 Componentes reutilizáveis
+        ├── Navbar.jsx        # 🔝 Navegação principal
+        ├── About.jsx         # 👤 Seção Sobre Mim
+        ├── Certifications.jsx # 🎓 Certificações
+        ├── Projects.jsx      # 📊 Timeline de Projetos
+        ├── Experience.jsx    # 💼 Experiências Profissionais
+        └── Contact.jsx       # 📧 Formulário de Contato
 ```
 
 ### 📋 Descrição das Pastas
