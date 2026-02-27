@@ -182,7 +182,7 @@ VITE_EMAILJS_PUBLIC_KEY=sua_public_key_aqui
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/seu-usuario/portifolio-lab-01.git
+git clone https://github.com/felipegiannetti/portifolio-lab-01.git
 cd portifolio-lab-01
 ```
 
@@ -244,6 +244,9 @@ portifolio-lab-01/
 ├── public/                   # 📁 Arquivos estáticos servidos diretamente
 │   ├── curriculo.pdf         # 📄 CV em português
 │   ├── curriculo-en.pdf      # 📄 CV em inglês
+│   ├── favicon.svg           # 🖼️ Ícone da aplicação
+│   ├── foto-perfil.jpg       # 🖼️ Foto de perfil
+│   ├── projects/             # 📁 Imagens dos projetos
 │   └── wireframe/            # 🧩 Imagens dos wireframes
 │       ├── 1.png             # 🖼️ Wireframe 1
 │       ├── 2.png             # 🖼️ Wireframe 2
@@ -337,6 +340,52 @@ Exemplo:
 git commit -m "feat: adiciona seção de certificações"
 git commit -m "fix: corrige responsividade no mobile"
 git commit -m "docs: atualiza README com instruções de deploy"
+```
+
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Para contribuir com o projeto:
+
+1. **Fork** o repositório
+2. Crie uma **branch** para sua feature: `git checkout -b feat/minha-feature`
+3. **Commit** suas alterações seguindo o padrão Conventional Commits: `git commit -m "feat: adiciona minha feature"`
+4. **Push** para a branch: `git push origin feat/minha-feature`
+5. Abra um **Pull Request** descrevendo as mudanças
+
+> Para bugs, abra uma [issue](https://github.com/felipegiannetti/portifolio-lab-01/issues) descrevendo o problema encontrado.
+
+---
+
+## 🙏 Agradecimentos
+
+- **Prof. Dr. João Paulo Aramuni** — orientação e suporte durante a disciplina de Laboratório de Desenvolvimento de Software
+- **PUC Minas** — infraestrutura e ambiente de aprendizado
+- Comunidade **React** e **Tailwind CSS** — pela documentação rica e ecossistema open-source
+- **Vercel** — pela plataforma de deploy gratuita e de fácil configuração
+- **EmailJS** — pela solução de envio de e-mail client-side sem necessidade de back-end
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a licença **MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+```
+MIT License
+
+Copyright (c) 2026 Felipe Giannetti Fontenelle
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 ```
 
 ---
