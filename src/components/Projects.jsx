@@ -11,7 +11,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
       github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Robot+Battle',
+      image: '/projects/robo.png',
       date: '2024',
     },
     {
@@ -22,7 +22,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['HTML', 'CSS', 'JavaScript'],
       github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
       live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=TDR+Consultoria',
+      image: 'https://opengraph.githubassets.com/1/felipegiannetti/TI-Front-end-PUC',
       date: '2025',
     },
     {
@@ -33,7 +33,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
       github: 'https://github.com/felipegiannetti/drone-delivery-system',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Drone+Delivery',
+      image: '/projects/drone.png',
       date: '2025',
     },
     {
@@ -44,7 +44,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
       github: 'https://github.com/felipegiannetti/n8n-random-number',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=n8n+Connector',
+      image: '/projects/n8n.png',
       date: '2025',
     },
   ];
@@ -58,7 +58,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
       github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Briga+de+Robos',
+      image: '/projects/robo.png',
       date: '2024',
     },
     {
@@ -69,7 +69,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['HTML', 'CSS', 'JavaScript'],
       github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
       live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=TDR+Consultoria',
+      image: 'https://opengraph.githubassets.com/1/felipegiannetti/TI-Front-end-PUC',
       date: '2025',
     },
     {
@@ -80,7 +80,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
       github: 'https://github.com/felipegiannetti/drone-delivery-system',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=Drone+Delivery',
+      image: '/projects/drone.png',
       date: '2025',
     },
     {
@@ -91,7 +91,7 @@ const Projects = ({ language = 'pt' }) => {
       technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
       github: 'https://github.com/felipegiannetti/n8n-random-number',
       live: null,
-      image: 'https://via.placeholder.com/600x400/1e3a5f/00ff88?text=n8n+Conector',
+      image: '/projects/n8n.png',
       date: '2025',
     },
   ];
@@ -128,7 +128,11 @@ const Projects = ({ language = 'pt' }) => {
                     <img
                       src={project.image}
                       alt={project.name}
-                      className="w-full h-32 object-cover"
+                      className="w-full h-44 object-cover object-top"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://via.placeholder.com/600x400/1e3a5f/00e5ff?text=${encodeURIComponent(project.name)}`;
+                      }}
                     />
                     {/* Content */}
                     <div className="p-4 flex flex-col gap-2">
