@@ -110,18 +110,22 @@ const Projects = ({ language = 'pt' }) => {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical Line */}
+          {/* Desktop: linha central */}
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent-green/50"></div>
+          {/* Mobile: linha à esquerda */}
+          <div className="md:hidden absolute left-5 top-0 bottom-0 w-0.5 bg-accent-green/50"></div>
 
           <div className="flex flex-col">
             {projects.map((project, index) => (
               <div
                 key={project.id}
-                className="relative flex flex-col md:flex-row items-center gap-0 hover:z-50"
-                style={{ marginTop: index > 0 ? '-9rem' : 0, zIndex: projects.length - index }}
+                className={`relative flex items-start md:items-center md:flex-row hover:z-50 pl-12 md:pl-0${index > 0 ? ' mt-6 md:-mt-36' : ''}`}
+                style={{ zIndex: projects.length - index }}
               >
+                {/* Mobile: dot à esquerda */}
+                <div className="md:hidden absolute left-[14px] top-5 w-3 h-3 bg-accent-green rounded-full border-2 border-primary-dark shadow-[0_0_6px_rgba(0,229,255,0.6)] z-10"></div>
 
-                {/* Card - alternates sides */}
+                {/* Card - alterna lados no desktop */}
                 <div className={`w-full md:w-5/12 ${index % 2 !== 0 ? 'md:order-3' : ''}`}>
                   <div className="bg-primary-dark border border-gray-700 hover:border-accent-green rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-[0_0_18px_rgba(0,229,255,0.15)]">
                     {/* Image */}
@@ -163,12 +167,12 @@ const Projects = ({ language = 'pt' }) => {
                   </div>
                 </div>
 
-                {/* Dot */}
+                {/* Desktop: dot central */}
                 <div className="hidden md:flex w-2/12 justify-center order-2 z-10">
                   <div className="w-4 h-4 bg-accent-green rounded-full border-4 border-primary-dark shadow-[0_0_8px_rgba(0,229,255,0.6)]"></div>
                 </div>
 
-                {/* Spacer */}
+                {/* Desktop: espaçador */}
                 <div className={`hidden md:block w-5/12 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-3'}`}></div>
               </div>
             ))}
