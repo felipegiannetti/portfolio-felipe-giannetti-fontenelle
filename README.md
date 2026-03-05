@@ -39,7 +39,9 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 
 ## 🔗 Links Úteis
 
-🌐 **Demo Online:** Em breve — o deploy ainda não foi publicado.
+
+🌐 **Demo Online:** [https://portifolio-lab-01.vercel.app](https://portifolio-lab-01.vercel.app)
+> Acesse a aplicação publicada na Vercel
 
 📧 **Contato:** [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
 > Entre em contato via e-mail para dúvidas ou oportunidades
