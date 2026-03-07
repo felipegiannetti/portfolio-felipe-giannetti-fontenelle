@@ -40,7 +40,7 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 ## 🔗 Links Úteis
 
 
-🌐 **Demo Online:** ([https://portfolio-felipe-giannetti-fontenelle.vercel.app/])
+🌐 **Demo Online:** https://portfolio-felipe-giannetti-fontenelle.vercel.app/
 > Acesse a aplicação publicada na Vercel
 
 📧 **Contato:** [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
