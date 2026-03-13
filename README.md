@@ -14,7 +14,6 @@ Este projeto demonstra boas práticas em desenvolvimento web moderno, incluindo 
 ![Vite](https://img.shields.io/badge/Vite-5.1.0-646CFF?logo=vite)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.1-38B2AC?logo=tailwind-css)
 ![Node](https://img.shields.io/badge/Node.js-LTS-339933?logo=node.js)
-![Status](https://img.shields.io/badge/status-in%20development-yellow)
 
 ---
 
