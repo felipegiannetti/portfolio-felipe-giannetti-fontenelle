@@ -160,7 +160,7 @@ const Highlights = ({ language }) => {
           </div>
         </Reveal>
 
-        <div ref={trackRef} className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6">
+        <div ref={trackRef} className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:scroll-px-6 sm:px-6">
           {POSTS.map((post) => (
             <a
               key={post.id}

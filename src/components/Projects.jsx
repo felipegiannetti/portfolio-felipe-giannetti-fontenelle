@@ -255,7 +255,7 @@ const ProjectCard = ({ project, language, onOpen }) => {
       <div className="flex flex-1 flex-col p-5">
         <h3 className="line-clamp-2 h-[3.25rem] text-lg font-bold leading-snug">{project.name[language]}</h3>
         <p className="mt-3 line-clamp-4 h-[5.7rem] text-sm leading-relaxed text-muted">{project.description[language]}</p>
-        <button onClick={() => onOpen(project)} className="mt-2 self-start text-xs font-semibold text-accent2 hover:underline">
+        <button onClick={() => onOpen(project)} className="-ml-1 mt-1 self-start rounded px-1 py-2 text-xs font-semibold text-accent2 hover:underline">
           {t('Ler mais', 'Read more')}
         </button>
 

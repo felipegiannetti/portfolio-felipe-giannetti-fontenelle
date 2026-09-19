@@ -10,9 +10,9 @@ const ROLES = {
 
 const FLOATING_CHIPS = [
   { label: 'React', position: 'top-6 -left-3 sm:-left-10', delay: '0s' },
-  { label: 'Java · Spring', position: 'top-1/3 -right-3 sm:-right-12', delay: '1.2s' },
+  { label: 'Java · Spring', position: 'top-1/3 -right-3 xl:-right-12', delay: '1.2s' },
   { label: 'AI', position: 'bottom-16 -left-4 sm:-left-14', delay: '2.1s' },
-  { label: 'Cloud', position: 'bottom-4 right-6 sm:-right-4', delay: '0.6s' },
+  { label: 'Cloud', position: 'bottom-4 right-6 xl:-right-4', delay: '0.6s' },
   { label: 'Security', position: '-top-3 right-10', delay: '1.7s' },
 ];
 
@@ -106,7 +106,7 @@ const Hero = ({ language, setShowCurriculo }) => {
       <a
         href="#about"
         aria-label={t('Rolar para baixo', 'Scroll down')}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 animate-float text-muted transition hover:text-ink sm:block"
+        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 animate-float p-3 text-muted transition hover:text-ink sm:block"
       >
         <FaArrowUp className="rotate-180" />
       </a>

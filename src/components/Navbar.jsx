@@ -40,7 +40,7 @@ const Navbar = ({ language, setLanguage, theme, toggleTheme, setShowCurriculo, o
           key={code}
           onClick={() => setLanguage(code)}
           aria-pressed={language === code}
-          className={`rounded-full px-3 py-1.5 uppercase transition-colors ${
+          className={`rounded-full px-3 py-2 uppercase transition-colors ${
             language === code ? 'bg-accent text-white shadow' : 'text-muted hover:text-ink'
           }`}
         >

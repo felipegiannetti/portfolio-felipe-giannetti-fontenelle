@@ -76,7 +76,7 @@ const Contact = ({ language }) => {
         />
 
         <div className="grid gap-8 lg:grid-cols-2">
-          <Reveal className="space-y-4">
+          <Reveal className="min-w-0 space-y-4">
             {socialLinks.map((social) => (
               <a
                 key={social.id}
@@ -108,7 +108,7 @@ const Contact = ({ language }) => {
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
+          <Reveal delay={120} className="min-w-0">
             <form ref={form} onSubmit={handleSubmit} data-spotlight className="glass space-y-5 rounded-3xl p-6 sm:p-8">
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-semibold">
