@@ -49,7 +49,7 @@ const SKILLS = [
   { name: 'Active Directory', icon: <FaKey />, color: '#0078D4', level: 2, cats: ['security'] },
   { name: 'Threat Detection', icon: <FaSearch />, color: '#f472b6', level: 2, cats: ['security'] },
   { name: 'Networking', icon: <FaNetworkWired />, color: '#22d3ee', level: 2, cats: ['security'] },
-  { name: 'Cryptography', icon: <FaLock />, color: '#7c5cff', level: 2, cats: ['security'] },
+  { name: 'Cryptography', icon: <FaLock />, color: '#7c5cff', level: 3, cats: ['security'] },
   { name: 'Software Architecture', icon: <FaSitemap />, color: '#7c5cff', level: 3, cats: ['practices'] },
   { name: 'REST APIs', icon: <FaPlug />, color: '#22d3ee', level: 3, cats: ['practices', 'backend'] },
   { name: 'Full-Stack Dev', icon: <FaServer />, color: '#f472b6', level: 3, cats: ['practices'] },
