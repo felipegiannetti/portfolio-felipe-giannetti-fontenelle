@@ -1,16 +1,37 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Felipe Giannetti Fontenelle — Software Engineer, Full Stack Developer and Cybersecurity professional at Anglo American. Projects in AI, cloud, data and security."
+    />
+    <meta property="og:title" content="Felipe Giannetti Fontenelle — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software Engineering student at PUC Minas · Global Cybersecurity at Anglo American · Full Stack, Data & AI."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0a0a14" />
     <title>Felipe Giannetti Fontenelle</title>
+    <script>
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      try {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

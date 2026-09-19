@@ -1,311 +1,264 @@
-import React from 'react';
-import { FaGithub, FaLock } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaGithub, FaExternalLinkAlt, FaLock, FaBrain, FaGraduationCap, FaShieldAlt, FaChartLine, FaRobot, FaStar } from 'react-icons/fa';
+import { Reveal, SectionHeader } from './ui';
 
-const Projects = ({ language = 'pt' }) => {
-  const projectsEN = [
-    {
-      id: 1,
-      name: 'Robot Battle – Arcade Controller',
-      description:
-        'Award-winning integrated robotics system featuring two robots that interact in real time through a custom-built arcade controller and a smartphone app over Bluetooth. Developed the embedded C++ software, electronic circuits, communication protocols, and control logic used to coordinate movement and the physical balloon-battle mechanic. The project received an Outstanding Work Certificate in the Computer Engineering program at PUC Minas.',
-      technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
-      github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
-      live: null,
-      image: '/projects/robo.png',
-      date: '2024',
-    },
-    {
-      id: 2,
-      name: 'TDR Consultoria',
-      description:
-        'Interdisciplinary front-end project developed for the Web Interface Development course at PUC Minas. A consultancy website with interactive forms allowing users to submit their requirements, enabling the team to deliver tailored results.',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
-      live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
-      image: 'https://opengraph.githubassets.com/1/felipegiannetti/TI-Front-end-PUC',
-      date: '2025',
-    },
-    {
-      id: 3,
-      name: 'DTI Drone Delivery System',
-      description:
-        'Complete drone delivery management system built for an urban logistics startup. Features an intelligent planning algorithm combining knapsack and nearest-neighbour heuristics to optimise routes by priority (HIGH → MEDIUM → LOW). Full RESTful backend with Spring Boot 3 and a modern Next.js 15 dashboard.',
-      technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
-      github: 'https://github.com/felipegiannetti/drone-delivery-system',
-      live: null,
-      image: '/projects/drone.png',
-      date: '2025',
-    },
-    {
-      id: 4,
-      name: 'n8n Random Number Connector',
-      description:
-        'Custom n8n node that wraps the Random.org API to generate truly random integers (not pseudo-random). Includes a Docker Compose environment with n8n and PostgreSQL pre-configured to load the node automatically. Built with TypeScript and published as a local npm package.',
-      technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
-      github: 'https://github.com/felipegiannetti/n8n-random-number',
-      live: null,
-      image: '/projects/n8n.png',
-      date: '2025',
-    },
-    {
-      id: 5,
-      name: 'AI-Powered Financial & Strategic Consulting Platform',
-      description:
-        'End-to-end enterprise platform that automates financial and strategic consulting workflows. The solution supports corporate restructuring, business valuation, investment risk analysis, and cost-of-capital calculations, integrating more than 10 external APIs for data aggregation and automated reporting. AI-powered capabilities generate contextual recommendations and adapt analyses to each project, while a scalable full-stack architecture supports testing, cloud deployment, and continuous product evolution.',
-      technologies: ['Java', 'Spring Boot', 'Python', 'React', 'TypeScript', 'PostgreSQL', 'REST APIs', 'AI Integration', 'Docker', 'Cloud'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2025–2026',
-      internal: true,
-      featured: true,
-    },
-    {
-      id: 6,
-      name: 'Global Cybersecurity Training Platform',
-      description:
-        'Global cloud-based training platform independently designed, architected, developed, tested, deployed, and launched for early-career cybersecurity professionals. Built from backend and frontend through cloud deployment, it combines gamified learning paths, interactive quizzes, practical challenges, and AI-assisted educational resources to create a consistent cybersecurity awareness experience across multiple regions.',
-      technologies: ['Full Stack', 'Software Architecture', 'AI Integration', 'REST APIs', 'Cloud Deployment', 'Gamification'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
-    },
-    {
-      id: 7,
-      name: 'Cybersecurity Automation & Integration Solutions',
-      description:
-        'Python automation tools, API integrations, and data-processing solutions built on top of enterprise cybersecurity platforms. These solutions automate repetitive workflows, enrich security data, consolidate multiple sources, and accelerate investigations, reporting, and operational decisions. The work also improved OT asset management, increasing metadata visibility by 15.5% and reducing inaccurate records by 23.4%.',
-      technologies: ['Python', 'REST APIs', 'Data Processing', 'Cybersecurity', 'OT / ICS', 'Software Automation'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
-    },
-    {
-      id: 8,
-      name: 'Cybersecurity Data Analytics & Reporting Solutions',
-      description:
-        'Automated data pipelines, executive reports, and KPI dashboards that consolidate information from multiple cybersecurity platforms into actionable insights. Built with Power BI and data-processing techniques, the solutions improve operational visibility, asset intelligence, performance monitoring, and data-driven decision-making for global cybersecurity operations.',
-      technologies: ['Power BI', 'Python', 'Data Analytics', 'KPI Pipelines', 'Business Intelligence', 'Cybersecurity'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
-    },
-  ];
+const CATEGORIES = [
+  { id: 'all', label: { pt: 'Todos', en: 'All' } },
+  { id: 'web', label: { pt: 'Web & Software', en: 'Web & Software' } },
+  { id: 'ai', label: { pt: 'IA & Dados', en: 'AI & Data' } },
+  { id: 'security', label: { pt: 'Cibersegurança', en: 'Cybersecurity' } },
+  { id: 'hardware', label: { pt: 'Robótica', en: 'Robotics' } },
+];
 
-  const projectsPT = [
-    {
-      id: 1,
-      name: 'Briga de Robôs – Controle Arcade',
-      description:
-        'Sistema integrado de robótica premiado, composto por dois robôs que interagem em tempo real por meio de um controle arcade desenvolvido especialmente para o projeto e de um aplicativo conectado por Bluetooth. Foram desenvolvidos o software embarcado em C++, os circuitos eletrônicos, os protocolos de comunicação e a lógica de controle responsáveis pela movimentação e pela dinâmica física de batalha com balões. O projeto recebeu um Certificado de Trabalho de Destaque no programa de Engenharia da Computação da PUC Minas.',
-      technologies: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
-      github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
-      live: null,
-      image: '/projects/robo.png',
-      date: '2024',
+const PROJECTS = [
+  {
+    id: 'ai-platform',
+    name: { pt: 'Plataforma de Automação para Consultoria Financeira e Estratégica com IA', en: 'AI-Powered Financial & Strategic Consulting Platform' },
+    description: {
+      pt: 'Plataforma corporativa completa que automatiza fluxos de consultoria financeira e estratégica. A solução contempla reestruturação empresarial, valuation, análise de riscos de investimento e cálculos de custo de capital, integrando mais de 10 APIs externas para agregação de dados e geração automática de relatórios. Recursos baseados em IA produzem recomendações contextualizadas e adaptam as análises a cada projeto, enquanto uma arquitetura Full Stack escalável sustenta testes, implantação em nuvem e evolução contínua do produto.',
+      en: 'End-to-end enterprise platform that automates financial and strategic consulting workflows. The solution supports corporate restructuring, business valuation, investment risk analysis, and cost-of-capital calculations, integrating more than 10 external APIs for data aggregation and automated reporting. AI-powered capabilities generate contextual recommendations and adapt analyses to each project, while a scalable full-stack architecture supports testing, cloud deployment, and continuous product evolution.',
     },
-    {
-      id: 2,
-      name: 'TDR Consultoria',
-      description:
-        'Projeto interdisciplinar de front-end desenvolvido na disciplina de Desenvolvimento de Interfaces Web da PUC Minas. Site de consultoria com formulários interativos que permitem ao usuário descrever suas necessidades, possibilitando à equipe entregar um resultado personalizado.',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
-      live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
-      image: 'https://opengraph.githubassets.com/1/felipegiannetti/TI-Front-end-PUC',
-      date: '2025',
+    tech: ['Java', 'Spring Boot', 'Python', 'React', 'TypeScript', 'PostgreSQL', 'REST APIs', 'AI Integration', 'Docker', 'Cloud'],
+    cats: ['ai', 'web'],
+    date: '2025–2026',
+    icon: <FaBrain />,
+    gradient: 'from-accent to-accent3',
+    internal: true,
+    featured: true,
+  },
+  {
+    id: 'training-platform',
+    name: { pt: 'Plataforma Global de Treinamento em Cibersegurança', en: 'Global Cybersecurity Training Platform' },
+    description: {
+      pt: 'Plataforma global de treinamento em nuvem projetada, arquitetada, desenvolvida, testada, implantada e colocada em produção de forma independente para profissionais de cibersegurança em início de carreira. Construída do backend e frontend à implantação em nuvem, reúne trilhas gamificadas, questionários interativos, desafios práticos e recursos educacionais assistidos por IA para padronizar a conscientização em cibersegurança em diferentes regiões.',
+      en: 'Global cloud-based training platform independently designed, architected, developed, tested, deployed, and launched for early-career cybersecurity professionals. Built from backend and frontend through cloud deployment, it combines gamified learning paths, interactive quizzes, practical challenges, and AI-assisted educational resources to create a consistent cybersecurity awareness experience across multiple regions.',
     },
-    {
-      id: 3,
-      name: 'DTI Drone Delivery System',
-      description:
-        'Sistema completo de gerenciamento de entregas por drones para uma startup de logística urbana. Possui algoritmo inteligente de planejamento combinando heurísticas de knapsack e nearest-neighbour para otimizar rotas por prioridade (HIGH → MEDIUM → LOW). Backend RESTful com Spring Boot 3 e dashboard moderno em Next.js 15.',
-      technologies: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
-      github: 'https://github.com/felipegiannetti/drone-delivery-system',
-      live: null,
-      image: '/projects/drone.png',
-      date: '2025',
+    tech: ['Full Stack', 'Software Architecture', 'AI Integration', 'REST APIs', 'Cloud Deployment', 'Gamification'],
+    cats: ['security', 'web'],
+    date: '2026',
+    icon: <FaGraduationCap />,
+    gradient: 'from-accent2 to-accent',
+    internal: true,
+    featured: true,
+  },
+  {
+    id: 'security-automation',
+    name: { pt: 'Soluções de Automação e Integração para Cibersegurança', en: 'Cybersecurity Automation & Integration Solutions' },
+    description: {
+      pt: 'Ferramentas de automação em Python, integrações de APIs e soluções de processamento de dados desenvolvidas sobre plataformas corporativas de cibersegurança. As soluções automatizam fluxos repetitivos, enriquecem dados de segurança, consolidam múltiplas fontes e aceleram investigações, relatórios e decisões operacionais. O trabalho também aprimorou a gestão de ativos de OT, aumentando a visibilidade dos metadados em 15,5% e reduzindo registros incorretos em 23,4%.',
+      en: 'Python automation tools, API integrations, and data-processing solutions built on top of enterprise cybersecurity platforms. These solutions automate repetitive workflows, enrich security data, consolidate multiple sources, and accelerate investigations, reporting, and operational decisions. The work also improved OT asset management, increasing metadata visibility by 15.5% and reducing inaccurate records by 23.4%.',
     },
-    {
-      id: 4,
-      name: 'Conector Random para n8n',
-      description:
-        'Node customizado para n8n que encapsula a API do Random.org para gerar inteiros verdadeiramente aleatórios (não pseudo-aleatórios). Inclui ambiente Docker Compose com n8n e PostgreSQL já configurados para carregar o node automaticamente. Desenvolvido em TypeScript e publicado como pacote npm local.',
-      technologies: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
-      github: 'https://github.com/felipegiannetti/n8n-random-number',
-      live: null,
-      image: '/projects/n8n.png',
-      date: '2025',
+    tech: ['Python', 'REST APIs', 'Data Processing', 'Cybersecurity', 'OT / ICS', 'Automation'],
+    cats: ['security'],
+    date: '2026',
+    icon: <FaShieldAlt />,
+    gradient: 'from-accent3 to-accent2',
+    internal: true,
+    featured: true,
+  },
+  {
+    id: 'security-analytics',
+    name: { pt: 'Soluções de Análise de Dados e Relatórios para Cibersegurança', en: 'Cybersecurity Data Analytics & Reporting Solutions' },
+    description: {
+      pt: 'Pipelines automatizados de dados, relatórios executivos e dashboards de KPIs que consolidam informações de múltiplas plataformas de cibersegurança em insights acionáveis. Desenvolvidas com Power BI e técnicas de processamento de dados, as soluções ampliam a visibilidade operacional, a inteligência sobre ativos, o acompanhamento de desempenho e a tomada de decisão orientada por dados em operações globais de cibersegurança.',
+      en: 'Automated data pipelines, executive reports, and KPI dashboards that consolidate information from multiple cybersecurity platforms into actionable insights. Built with Power BI and data-processing techniques, the solutions improve operational visibility, asset intelligence, performance monitoring, and data-driven decision-making for global cybersecurity operations.',
     },
-    {
-      id: 5,
-      name: 'Plataforma de Automação para Consultoria Financeira e Estratégica com IA',
-      description:
-        'Plataforma corporativa completa que automatiza fluxos de consultoria financeira e estratégica. A solução contempla reestruturação empresarial, valuation, análise de riscos de investimento e cálculos de custo de capital, integrando mais de 10 APIs externas para agregação de dados e geração automática de relatórios. Recursos baseados em IA produzem recomendações contextualizadas e adaptam as análises a cada projeto, enquanto uma arquitetura Full Stack escalável sustenta testes, implantação em nuvem e evolução contínua do produto.',
-      technologies: ['Java', 'Spring Boot', 'Python', 'React', 'TypeScript', 'PostgreSQL', 'REST APIs', 'Integração de IA', 'Docker', 'Cloud'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2025–2026',
-      internal: true,
-      featured: true,
+    tech: ['Power BI', 'Python', 'Data Analytics', 'KPI Pipelines', 'Business Intelligence'],
+    cats: ['ai', 'security'],
+    date: '2026',
+    icon: <FaChartLine />,
+    gradient: 'from-accent to-accent2',
+    internal: true,
+    featured: true,
+  },
+  {
+    id: 'drone',
+    name: { pt: 'DTI Drone Delivery System', en: 'DTI Drone Delivery System' },
+    description: {
+      pt: 'Sistema completo de gerenciamento de entregas por drones para uma startup de logística urbana. Possui algoritmo inteligente de planejamento combinando heurísticas de knapsack e nearest-neighbour para otimizar rotas por prioridade (HIGH → MEDIUM → LOW). Backend RESTful com Spring Boot 3 e dashboard moderno em Next.js 15.',
+      en: 'Complete drone delivery management system built for an urban logistics startup. Features an intelligent planning algorithm combining knapsack and nearest-neighbour heuristics to optimise routes by priority (HIGH → MEDIUM → LOW). Full RESTful backend with Spring Boot 3 and a modern Next.js 15 dashboard.',
     },
-    {
-      id: 6,
-      name: 'Plataforma Global de Treinamento em Cibersegurança',
-      description:
-        'Plataforma global de treinamento em nuvem projetada, arquitetada, desenvolvida, testada, implantada e colocada em produção de forma independente para profissionais de cibersegurança em início de carreira. Construída do backend e frontend à implantação em nuvem, reúne trilhas gamificadas, questionários interativos, desafios práticos e recursos educacionais assistidos por IA para padronizar a conscientização em cibersegurança em diferentes regiões.',
-      technologies: ['Full Stack', 'Arquitetura de Software', 'Integração de IA', 'REST APIs', 'Cloud Deployment', 'Gamificação'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
+    tech: ['Java 24', 'Spring Boot 3', 'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Maven'],
+    cats: ['web'],
+    date: '2025',
+    image: '/projects/drone.png',
+    github: 'https://github.com/felipegiannetti/drone-delivery-system',
+  },
+  {
+    id: 'tdr',
+    name: { pt: 'TDR Consultoria', en: 'TDR Consultoria' },
+    description: {
+      pt: 'Projeto interdisciplinar de front-end desenvolvido na disciplina de Desenvolvimento de Interfaces Web da PUC Minas. Site de consultoria com formulários interativos que permitem ao usuário descrever suas necessidades, possibilitando à equipe entregar um resultado personalizado.',
+      en: 'Interdisciplinary front-end project developed for the Web Interface Development course at PUC Minas. A consultancy website with interactive forms allowing users to submit their requirements, enabling the team to deliver tailored results.',
     },
-    {
-      id: 7,
-      name: 'Soluções de Automação e Integração para Cibersegurança',
-      description:
-        'Ferramentas de automação em Python, integrações de APIs e soluções de processamento de dados desenvolvidas sobre plataformas corporativas de cibersegurança. As soluções automatizam fluxos repetitivos, enriquecem dados de segurança, consolidam múltiplas fontes e aceleram investigações, relatórios e decisões operacionais. O trabalho também aprimorou a gestão de ativos de OT, aumentando a visibilidade dos metadados em 15,5% e reduzindo registros incorretos em 23,4%.',
-      technologies: ['Python', 'REST APIs', 'Processamento de Dados', 'Cibersegurança', 'OT / ICS', 'Automação de Software'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    cats: ['web'],
+    date: '2025',
+    image: 'https://opengraph.githubassets.com/1/felipegiannetti/TI-Front-end-PUC',
+    gradient: 'from-accent3 to-accent',
+    icon: <FaGithub />,
+    github: 'https://github.com/felipegiannetti/TI-Front-end-PUC',
+    live: 'https://plf-es-2025-1-ti1-0385100-tdr-consu.vercel.app/',
+  },
+  {
+    id: 'n8n',
+    name: { pt: 'Conector Random para n8n', en: 'n8n Random Number Connector' },
+    description: {
+      pt: 'Node customizado para n8n que encapsula a API do Random.org para gerar inteiros verdadeiramente aleatórios (não pseudo-aleatórios). Inclui ambiente Docker Compose com n8n e PostgreSQL já configurados para carregar o node automaticamente. Desenvolvido em TypeScript e publicado como pacote npm local.',
+      en: 'Custom n8n node that wraps the Random.org API to generate truly random integers (not pseudo-random). Includes a Docker Compose environment with n8n and PostgreSQL pre-configured to load the node automatically. Built with TypeScript and published as a local npm package.',
     },
-    {
-      id: 8,
-      name: 'Soluções de Análise de Dados e Relatórios para Cibersegurança',
-      description:
-        'Pipelines automatizados de dados, relatórios executivos e dashboards de KPIs que consolidam informações de múltiplas plataformas de cibersegurança em insights acionáveis. Desenvolvidas com Power BI e técnicas de processamento de dados, as soluções ampliam a visibilidade operacional, a inteligência sobre ativos, o acompanhamento de desempenho e a tomada de decisão orientada por dados em operações globais de cibersegurança.',
-      technologies: ['Power BI', 'Python', 'Análise de Dados', 'Pipelines de KPIs', 'Business Intelligence', 'Cibersegurança'],
-      github: null,
-      live: null,
-      image: null,
-      date: '2026',
-      internal: true,
-      featured: true,
+    tech: ['TypeScript', 'Node.js', 'n8n', 'Docker', 'PostgreSQL', 'Random.org API'],
+    cats: ['web'],
+    date: '2025',
+    image: '/projects/n8n.png',
+    github: 'https://github.com/felipegiannetti/n8n-random-number',
+  },
+  {
+    id: 'robots',
+    name: { pt: 'Briga de Robôs – Controle Arcade', en: 'Robot Battle – Arcade Controller' },
+    description: {
+      pt: 'Sistema integrado de robótica premiado, composto por dois robôs que interagem em tempo real por meio de um controle arcade desenvolvido especialmente para o projeto e de um aplicativo conectado por Bluetooth. Foram desenvolvidos o software embarcado em C++, os circuitos eletrônicos, os protocolos de comunicação e a lógica de controle responsáveis pela movimentação e pela dinâmica física de batalha com balões. O projeto recebeu um Certificado de Trabalho de Destaque no programa de Engenharia da Computação da PUC Minas.',
+      en: 'Award-winning integrated robotics system featuring two robots that interact in real time through a custom-built arcade controller and a smartphone app over Bluetooth. Developed the embedded C++ software, electronic circuits, communication protocols, and control logic used to coordinate movement and the physical balloon-battle mechanic. The project received an Outstanding Work Certificate in the Computer Engineering program at PUC Minas.',
     },
-  ];
+    tech: ['C++', 'Arduino', 'Bluetooth', 'MIT App Inventor'],
+    cats: ['hardware'],
+    date: '2024',
+    image: '/projects/robo.png',
+    icon: <FaRobot />,
+    gradient: 'from-accent2 to-accent3',
+    github: 'https://github.com/felipegiannetti/projeto-interacao-robos-destaque-primeiro-periodo',
+    award: true,
+  },
+];
 
-  const projects = [...(language === 'en' ? projectsEN : projectsPT)].sort(
-    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
-  );
+const ProjectVisual = ({ project }) => {
+  const [failed, setFailed] = useState(false);
+
+  if (project.image && !failed) {
+    return (
+      <img
+        src={project.image}
+        alt={project.name.en}
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+      />
+    );
+  }
 
   return (
-    <section id="projects" className="min-h-screen bg-gradient-to-b from-primary-dark to-primary-blue py-14">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title */}
-        <h2 className="text-5xl font-bold text-center mb-8 text-white">{language === 'en' ? 'Projects' : 'Projetos'}</h2>
-        <div className="w-24 h-1 bg-accent-green mx-auto mb-4"></div>
-        <p className="text-center text-gray-300 mb-12 text-lg">
-          {language === 'en' ? 'Featured recent projects followed by my project timeline' : 'Projetos recentes em destaque, seguidos pela linha do tempo dos meus projetos'}
-        </p>
+    <div className={`relative grid h-44 place-items-center overflow-hidden bg-gradient-to-br ${project.gradient || 'from-accent to-accent2'}`}>
+      <span className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/15 blur-2xl" />
+      <span className="text-6xl text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+        {project.icon || <FaBrain />}
+      </span>
+    </div>
+  );
+};
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Desktop: linha central */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent-green/50"></div>
-          {/* Mobile: linha à esquerda */}
-          <div className="md:hidden absolute left-5 top-0 bottom-0 w-0.5 bg-accent-green/50"></div>
+const ProjectCard = ({ project, language }) => {
+  const [expanded, setExpanded] = useState(false);
+  const t = (pt, en) => (language === 'en' ? en : pt);
+  const description = project.description[language];
+  const isLong = description.length > 220;
 
-          <div className="flex flex-col">
-            {projects.map((project, index) => (
-              <div
-                key={project.id}
-                className={`relative flex items-start md:items-center md:flex-row hover:z-50 pl-12 md:pl-0${index > 0 ? ' mt-6 md:mt-8' : ''}`}
-                style={{ zIndex: projects.length - index }}
-              >
-                {/* Mobile: dot à esquerda */}
-                <div className="md:hidden absolute left-[14px] top-5 w-3 h-3 bg-accent-green rounded-full border-2 border-primary-dark shadow-[0_0_6px_rgba(0,229,255,0.6)] z-10"></div>
+  return (
+    <article data-spotlight className="glass group flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10">
+      <div className="relative overflow-hidden">
+        <ProjectVisual project={project} />
+        <span className="absolute right-3 top-3 rounded-full bg-canvas/80 px-3 py-1 text-xs font-semibold backdrop-blur">{project.date}</span>
+        {project.featured && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+            <FaStar size={9} />
+            {t('Destaque', 'Featured')}
+          </span>
+        )}
+        {project.award && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-accent3 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+            <FaStar size={9} />
+            {t('Premiado', 'Award-winning')}
+          </span>
+        )}
+      </div>
 
-                {/* Card - alterna lados no desktop */}
-                <div className={`w-full md:w-5/12 ${index % 2 !== 0 ? 'md:order-3' : ''}`}>
-                  <div className="bg-primary-dark border border-gray-700 hover:border-accent-green rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-[0_0_18px_rgba(0,229,255,0.15)]">
-                    {/* Image */}
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.name}
-                        className="w-full h-44 object-cover object-top"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = `https://via.placeholder.com/600x400/1e3a5f/00e5ff?text=${encodeURIComponent(project.name)}`;
-                        }}
-                      />
-                    ) : (
-                      <div className="h-44 bg-gradient-to-br from-primary-blue via-primary-dark to-primary-blue flex flex-col items-center justify-center gap-3 border-b border-accent-green/20 px-6 text-center">
-                        <FaLock className="text-accent-green" size={32} />
-                        <span className="text-accent-green text-xs font-extrabold uppercase tracking-widest">
-                          {language === 'en' ? 'Internal corporate project' : 'Projeto corporativo interno'}
-                        </span>
-                      </div>
-                    )}
-                    {/* Content */}
-                    <div className="p-4 flex flex-col gap-2">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          {project.featured && (
-                            <span className="inline-flex mb-1 bg-accent-green/10 text-accent-green border border-accent-green/30 px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest">
-                              {language === 'en' ? 'Featured' : 'Destaque'}
-                            </span>
-                          )}
-                          <h3 className="text-sm font-bold text-white leading-snug">{project.name}</h3>
-                        </div>
-                        <span className="flex-shrink-0 bg-accent-green text-primary-dark px-2 py-0.5 rounded-full text-xs font-bold">
-                          {project.date}
-                        </span>
-                      </div>
-                      <p className="text-gray-400 text-xs leading-relaxed">{project.description}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {project.technologies.map((tech, idx) => (
-                          <span key={idx} className="bg-primary-blue text-accent-green px-2 py-0.5 rounded-full text-[10px] font-semibold border border-accent-green/20">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      {project.github ? (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 bg-accent-green text-primary-dark px-3 py-1 rounded-lg text-xs font-bold hover:bg-white transition-colors duration-300 self-start mt-1"
-                        >
-                          <FaGithub size={13} />
-                          GitHub
-                        </a>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 bg-primary-blue text-gray-300 border border-gray-600 px-3 py-1 rounded-lg text-xs font-bold self-start mt-1">
-                          <FaLock size={11} />
-                          {language === 'en' ? 'Internal project' : 'Projeto interno'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold leading-snug">{project.name[language]}</h3>
+        <p className={`mt-3 text-sm leading-relaxed text-muted ${expanded ? '' : 'line-clamp-4'}`}>{description}</p>
+        {isLong && (
+          <button onClick={() => setExpanded(!expanded)} className="mt-2 self-start text-xs font-semibold text-accent2 hover:underline">
+            {expanded ? t('Ver menos', 'Show less') : t('Ler mais', 'Read more')}
+          </button>
+        )}
 
-                {/* Desktop: dot central */}
-                <div className="hidden md:flex w-2/12 justify-center order-2 z-10">
-                  <div className="w-4 h-4 bg-accent-green rounded-full border-4 border-primary-dark shadow-[0_0_8px_rgba(0,229,255,0.6)]"></div>
-                </div>
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {project.tech.map((tech) => (
+            <span key={tech} className="chip !px-2.5 !py-0.5 !text-[11px]">
+              {tech}
+            </span>
+          ))}
+        </div>
 
-                {/* Desktop: espaçador */}
-                <div className={`hidden md:block w-5/12 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-3'}`}></div>
-              </div>
-            ))}
-          </div>
+        <div className="mt-auto flex flex-wrap gap-2 pt-5">
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-ghost !px-4 !py-2 !text-xs">
+              <FaGithub />
+              GitHub
+            </a>
+          )}
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-primary !px-4 !py-2 !text-xs">
+              <FaExternalLinkAlt size={10} />
+              Live
+            </a>
+          )}
+          {project.internal && (
+            <span className="chip !px-3 !py-1.5">
+              <FaLock size={10} />
+              {t('Projeto corporativo interno', 'Internal corporate project')}
+            </span>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+};
+
+const Projects = ({ language }) => {
+  const [category, setCategory] = useState('all');
+  const t = (pt, en) => (language === 'en' ? en : pt);
+  const visible = PROJECTS.filter((project) => category === 'all' || project.cats.includes(category));
+
+  return (
+    <section id="projects" className="px-4 py-24 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t('Projetos', 'Projects')}
+          title={t('O que eu construí', "What I've built")}
+          subtitle={t(
+            'Produtos corporativos em destaque, projetos acadêmicos e experimentos — filtre por área.',
+            'Featured corporate products, academic projects and experiments — filter by area.',
+          )}
+        />
+
+        <Reveal className="mb-10 flex flex-wrap gap-2" >
+          {CATEGORIES.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setCategory(item.id)}
+              aria-pressed={category === item.id}
+              className={`chip !px-4 !py-2 !text-sm transition-all hover:border-accent/50 hover:text-ink ${category === item.id ? 'chip-active shadow-lg shadow-accent/20' : ''}`}
+            >
+              {item.label[language]}
+            </button>
+          ))}
+        </Reveal>
+
+        <div key={category} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {visible.map((project, index) => (
+            <div key={project.id} className="animate-fade-up" style={{ animationDelay: `${index * 60}ms` }}>
+              <ProjectCard project={project} language={language} />
+            </div>
+          ))}
         </div>
       </div>
     </section>

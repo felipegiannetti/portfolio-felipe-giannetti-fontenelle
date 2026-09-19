@@ -1,319 +1,215 @@
-import React from 'react';
-import { FaCertificate, FaStar } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaSearch, FaStar, FaAward } from 'react-icons/fa';
+import { Reveal, SectionHeader, Tilt, formatMonth } from './ui';
+
+const CATEGORIES = [
+  { id: 'all', label: { pt: 'Todas', en: 'All' } },
+  { id: 'security', label: { pt: 'Cibersegurança', en: 'Cybersecurity' } },
+  { id: 'software', label: { pt: 'Software & Web', en: 'Software & Web' } },
+  { id: 'other', label: { pt: 'Outras', en: 'Other' } },
+];
+
+const INITIAL_VISIBLE = 12;
+
+// Source: LinkedIn "Licenses & certifications" (41 items). Dates are 'YYYY-MM'.
+const CERTIFICATIONS = [
+  // Skillsoft — CompTIA Security+
+  { title: 'CompTIA Security+: Security Compliance & Third-Party Risk', org: 'Skillsoft', date: '2026-09', cat: 'security' },
+  { title: 'CompTIA Security+: Risk Management', org: 'Skillsoft', date: '2026-09', cat: 'security' },
+  { title: 'CompTIA Security+: Identity and Access Management', org: 'Skillsoft', date: '2026-08', cat: 'security' },
+  { title: 'CompTIA Security+: Enterprise Security Capabilities', org: 'Skillsoft', date: '2026-08', cat: 'security' },
+  { title: 'CompTIA Security+: Effective Security Governance', org: 'Skillsoft', date: '2026-08', cat: 'security' },
+  { title: 'CompTIA Security+: Automation, Orchestration, & Incident Response', org: 'Skillsoft', date: '2026-08', cat: 'security' },
+  { title: 'CompTIA Security+: Vulnerability Management', org: 'Skillsoft', date: '2026-07', cat: 'security' },
+  { title: 'CompTIA Security+: Security Monitoring & Alerting', org: 'Skillsoft', date: '2026-07', cat: 'security' },
+  { title: 'CompTIA Security+: Resilience & Recovery', org: 'Skillsoft', date: '2026-06', cat: 'security' },
+  { title: 'CompTIA Security+: Computing Resources Security Techniques', org: 'Skillsoft', date: '2026-06', cat: 'security' },
+  { title: 'CompTIA Security+: Data Protection Concepts & Strategies', org: 'Skillsoft', date: '2026-05', cat: 'security' },
+  { title: 'CompTIA Security+: Enterprise Infrastructure Security Principles', org: 'Skillsoft', date: '2026-05', cat: 'security' },
+  { title: 'CompTIA Security+: Architecture & Infrastructure Concepts', org: 'Skillsoft', date: '2026-04', cat: 'security' },
+  { title: 'CompTIA Security+: Mitigation Techniques', org: 'Skillsoft', date: '2026-03', cat: 'security' },
+  { title: 'CompTIA Security+: Survey of Malicious Activities', org: 'Skillsoft', date: '2026-03', cat: 'security' },
+  { title: 'CompTIA Security+: Threat Actors & Vectors', org: 'Skillsoft', date: '2026-02', cat: 'security' },
+  { title: 'CompTIA Security+: Practical Cryptography', org: 'Skillsoft', date: '2026-01', cat: 'security' },
+  { title: 'CompTIA Security+: Security Goals & Controls', org: 'Skillsoft', date: '2026-01', cat: 'security' },
+  // Cybrary
+  { title: 'Data Classification', org: 'Cybrary', date: '2026-06', cat: 'security' },
+  { title: 'Firewall Basics', org: 'Cybrary', date: '2026-05', cat: 'security' },
+  { title: 'Secure Network Architecture', org: 'Cybrary', date: '2026-04', cat: 'security' },
+  { title: 'Lateral Movement: Remote Desktop Protocol (RDP)', org: 'Cybrary', date: '2026-03', cat: 'security' },
+  { title: 'Cryptography Basics', org: 'Cybrary', date: '2026-02', cat: 'security' },
+  { title: 'Network Basics', org: 'Cybrary', date: '2025-12', cat: 'security' },
+  // Security — other issuers
+  {
+    title: 'Adversary Perspectives: Active Directory',
+    org: 'SpecterOps',
+    date: '2026-02',
+    cat: 'security',
+    featured: { pt: 'Active Directory', en: 'Active Directory' },
+  },
+  {
+    title: 'Claroty Cybersecurity Analyst',
+    org: 'Claroty',
+    date: '2026-01',
+    cat: 'security',
+    featured: { pt: 'Analista de Segurança OT', en: 'OT Security Analyst' },
+    expires: '2028-01',
+  },
+  { title: 'Discovering Cybersecurity', org: 'Udacity', date: '2026-01', cat: 'security' },
+  // Software & Web
+  {
+    title: 'Full Stack Web Development',
+    org: 'Amazon',
+    date: '2025-07',
+    cat: 'software',
+    featured: { pt: 'Full Stack', en: 'Full Stack' },
+  },
+  { title: 'Programming with Java', org: 'Amazon', date: '2025-06', cat: 'software' },
+  { title: 'Getting Started with Git and GitHub', org: 'IBM', date: '2025-04', cat: 'software' },
+  { title: 'Developing Websites and Front-Ends with Bootstrap', org: 'IBM', date: '2025-04', cat: 'software' },
+  { title: 'Interactivity with JavaScript', org: 'University of Michigan', date: '2025-03', cat: 'software' },
+  { title: 'Introduction to HTML, CSS, & JavaScript', org: 'IBM', date: '2025-02', cat: 'software' },
+  { title: 'Designing User Interfaces and Experiences (UI/UX)', org: 'IBM', date: '2025-02', cat: 'software' },
+  { title: 'Exploring C', org: 'University of Michigan', date: '2025-02', cat: 'software' },
+  { title: 'Programming in C', org: 'University of Michigan', date: '2025-02', cat: 'software' },
+  { title: 'Introduction to Software Engineering', org: 'IBM', date: '2025-02', cat: 'software' },
+  { title: 'Getting Started with Front-End and Web Development', org: 'IBM', date: '2025-01', cat: 'software' },
+  // Other
+  {
+    title: 'EF SET English Certificate 75/100 (C2 Proficient)',
+    org: 'EF SET',
+    date: '2025-09',
+    cat: 'other',
+    featured: { pt: 'Proficiência em Inglês', en: 'Language Proficiency' },
+  },
+  { title: 'Behavioral Finance', org: 'Duke University', date: '2025-01', cat: 'other' },
+  { title: 'HUAWEI ICT ROADSHOW — IoT Equipment & Applications', titlePT: 'HUAWEI ICT ROADSHOW — Equipamentos e Aplicações de IoT', org: 'Universidade Estadual do Ceará', date: '2024-04', cat: 'other' },
+];
+
+// Newest first (Array.prototype.sort is stable, so same-month items keep their order above).
+CERTIFICATIONS.sort((a, b) => b.date.localeCompare(a.date));
+
+const hueFor = (text) => [...text].reduce((sum, char) => sum + char.charCodeAt(0) * 7, 0) % 360;
+
+const IssuerBadge = ({ name }) => (
+  <span
+    className="grid h-10 w-10 shrink-0 place-items-center rounded-xl text-sm font-bold text-white shadow-md"
+    style={{ background: `linear-gradient(135deg, hsl(${hueFor(name)} 70% 55%), hsl(${(hueFor(name) + 50) % 360} 70% 45%))` }}
+  >
+    {name.replace(/^(Universidade|University)\s+(Estadual\s+)?(do|of)\s+/i, '').charAt(0)}
+  </span>
+);
 
 const Certifications = ({ language }) => {
+  const [category, setCategory] = useState('all');
+  const [query, setQuery] = useState('');
+  const [showAll, setShowAll] = useState(false);
+  const t = (pt, en) => (language === 'en' ? en : pt);
 
-  const certifications = [
-    // IBM
-    {
-      id: 1,
-      titlePT: 'Getting Started with Git and GitHub',
-      titleEN: 'Getting Started with Git and GitHub',
-      organization: 'IBM',
-      date: 'Abr 2025',
-    },
-    {
-      id: 2,
-      titlePT: 'Developing Websites and Front-Ends with Bootstrap',
-      titleEN: 'Developing Websites and Front-Ends with Bootstrap',
-      organization: 'IBM',
-      date: 'Abr 2025',
-    },
-    {
-      id: 3,
-      titlePT: 'Introduction to HTML, CSS, & JavaScript',
-      titleEN: 'Introduction to HTML, CSS, & JavaScript',
-      organization: 'IBM',
-      date: 'Fev 2025',
-    },
-    {
-      id: 4,
-      titlePT: 'Designing User Interfaces and Experiences (UI/UX)',
-      titleEN: 'Designing User Interfaces and Experiences (UI/UX)',
-      organization: 'IBM',
-      date: 'Fev 2025',
-    },
-    {
-      id: 5,
-      titlePT: 'Introduction to Software Engineering',
-      titleEN: 'Introduction to Software Engineering',
-      organization: 'IBM',
-      date: 'Fev 2025',
-    },
-    {
-      id: 6,
-      titlePT: 'Getting Started with Front-End and Web Development',
-      titleEN: 'Getting Started with Front-End and Web Development',
-      organization: 'IBM',
-      date: 'Jan 2025',
-    },
-    // Amazon
-    {
-      id: 7,
-      titlePT: 'Full Stack Web Development',
-      titleEN: 'Full Stack Web Development',
-      organization: 'Amazon',
-      date: 'Jul 2025',
-    },
-    {
-      id: 8,
-      titlePT: 'Programming with Java',
-      titleEN: 'Programming with Java',
-      organization: 'Amazon',
-      date: 'Jun 2025',
-    },
-    // University of Michigan
-    {
-      id: 9,
-      titlePT: 'Interactivity with JavaScript',
-      titleEN: 'Interactivity with JavaScript',
-      organization: 'University of Michigan',
-      date: 'Mar 2025',
-    },
-    {
-      id: 10,
-      titlePT: 'Exploring C',
-      titleEN: 'Exploring C',
-      organization: 'University of Michigan',
-      date: 'Fev 2025',
-    },
-    {
-      id: 11,
-      titlePT: 'Programming in C',
-      titleEN: 'Programming in C',
-      organization: 'University of Michigan',
-      date: 'Fev 2025',
-    },
-    // Duke University
-    {
-      id: 12,
-      titlePT: 'Behavioral Finance',
-      titleEN: 'Behavioral Finance',
-      organization: 'Duke University',
-      date: 'Jan 2025',
-    },
-    // SpecterOps
-    {
-      id: 13,
-      titlePT: 'Adversary Perspectives: Active Directory',
-      titleEN: 'Adversary Perspectives: Active Directory',
-      organization: 'SpecterOps',
-      date: 'Fev 2026',
-    },
-    // Claroty
-    {
-      id: 14,
-      titlePT: 'Claroty Cybersecurity Analyst',
-      titleEN: 'Claroty Cybersecurity Analyst',
-      organization: 'Claroty',
-      date: 'Jan 2026',
-      featured: true,
-      featuredLabel: { pt: 'OT Security Analyst', en: 'OT Security Analyst' },
-    },
-    // Skillsoft / CompTIA
-    {
-      id: 15,
-      titlePT: 'CompTIA Security+: Threat Actors & Vectors',
-      titleEN: 'CompTIA Security+: Threat Actors & Vectors',
-      organization: 'Skillsoft',
-      date: 'Fev 2026',
-    },
-    {
-      id: 16,
-      titlePT: 'CompTIA Security+: Practical Cryptography',
-      titleEN: 'CompTIA Security+: Practical Cryptography',
-      organization: 'Skillsoft',
-      date: 'Jan 2026',
-    },
-    {
-      id: 17,
-      titlePT: 'CompTIA Security+: Security Goals & Controls',
-      titleEN: 'CompTIA Security+: Security Goals & Controls',
-      organization: 'Skillsoft',
-      date: 'Jan 2026',
-    },
-    // Cybrary
-    {
-      id: 18,
-      titlePT: 'Cryptography Basics',
-      titleEN: 'Cryptography Basics',
-      organization: 'Cybrary',
-      date: 'Fev 2026',
-    },
-    {
-      id: 19,
-      titlePT: 'Network Basics',
-      titleEN: 'Network Basics',
-      organization: 'Cybrary',
-      date: 'Dez 2025',
-    },
-    // Udacity
-    {
-      id: 20,
-      titlePT: 'Discovering Cybersecurity',
-      titleEN: 'Discovering Cybersecurity',
-      organization: 'Udacity',
-      date: 'Jan 2026',
-    },
-    // EF SET
-    {
-      id: 21,
-      titlePT: 'EF SET English Certificate 75/100 (C2 Proficient)',
-      titleEN: 'EF SET English Certificate 75/100 (C2 Proficient)',
-      organization: 'EF SET',
-      date: 'Set 2025',
-      featured: true,
-      featuredLabel: { pt: 'Proficiência em Inglês', en: 'Language Proficiency' },
-    },
-    // Huawei
-    {
-      id: 22,
-      titlePT: 'Certificado HUAWEI ICT ROADSHOW',
-      titleEN: 'HUAWEI ICT ROADSHOW Certificate',
-      organization: 'Universidade Estadual do Ceará / Huawei',
-      date: 'Abr 2024',
-    },
-    {
-      id: 23,
-      titlePT: 'CompTIA Security+: Enterprise Infrastructure Security Principles',
-      titleEN: 'CompTIA Security+: Enterprise Infrastructure Security Principles',
-      organization: 'Skillsoft',
-      date: '2026',
-    },
-    {
-      id: 24,
-      titlePT: 'CompTIA Security+: Architecture & Infrastructure Concepts',
-      titleEN: 'CompTIA Security+: Architecture & Infrastructure Concepts',
-      organization: 'Skillsoft',
-      date: '2026',
-    },
-    {
-      id: 25,
-      titlePT: 'CompTIA Security+: Data Protection Concepts & Strategies',
-      titleEN: 'CompTIA Security+: Data Protection Concepts & Strategies',
-      organization: 'Skillsoft',
-      date: '2026',
-    },
-    {
-      id: 26,
-      titlePT: 'CompTIA Security+: Mitigation Techniques',
-      titleEN: 'CompTIA Security+: Mitigation Techniques',
-      organization: 'Skillsoft',
-      date: '2026',
-    },
-    {
-      id: 27,
-      titlePT: 'CompTIA Security+: Survey of Malicious Activities',
-      titleEN: 'CompTIA Security+: Survey of Malicious Activities',
-      organization: 'Skillsoft',
-      date: '2026',
-    },
-    {
-      id: 28,
-      titlePT: 'Secure Network Architecture',
-      titleEN: 'Secure Network Architecture',
-      organization: 'Cybrary',
-      date: '2026',
-    },
-    {
-      id: 29,
-      titlePT: 'Lateral Movement: Remote Desktop Protocol (RDP)',
-      titleEN: 'Lateral Movement: Remote Desktop Protocol (RDP)',
-      organization: 'Cybrary',
-      date: '2026',
-    },
-  ];
+  const titleOf = (cert) => (language === 'pt' && cert.titlePT) || cert.title;
+  const featured = CERTIFICATIONS.filter((cert) => cert.featured);
+  const normalizedQuery = query.trim().toLowerCase();
+  const filtered = CERTIFICATIONS.filter(
+    (cert) =>
+      (category === 'all' || cert.cat === category) &&
+      (!normalizedQuery || `${titleOf(cert)} ${cert.org}`.toLowerCase().includes(normalizedQuery)),
+  );
+  const searching = normalizedQuery !== '' || category !== 'all';
+  const visible = searching || showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE);
+  const countFor = (id) => CERTIFICATIONS.filter((cert) => id === 'all' || cert.cat === id).length;
 
   return (
-    <section id="certifications" className="py-10 px-4 md:px-8 max-w-6xl mx-auto">
-      <h2 className="text-4xl font-bold mb-4 text-center">
-        {language === 'en' ? 'Certifications' : 'Certificações'}
-      </h2>
-      <div className="w-24 h-1 bg-accent-green mx-auto mb-12"></div>
+    <section id="certifications" className="px-4 py-24 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t('Certificações', 'Certifications')}
+          title={t(`${CERTIFICATIONS.length} certificações e aprendizado contínuo`, `${CERTIFICATIONS.length} certifications & continuous learning`)}
+          subtitle={t(
+            'Cibersegurança, engenharia de software, dados e negócios — sempre estudando algo novo.',
+            'Cybersecurity, software engineering, data and business — always learning something new.',
+          )}
+        />
 
-      {/* Featured certificates */}
-      {(() => {
-        const featured = certifications.filter((c) => c.featured);
-        if (!featured.length) return null;
-        return (
-          <div className="mb-12">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <span className="h-px w-12 bg-accent-green/40"></span>
-              <span className="inline-flex items-center gap-1.5 text-accent-green text-[11px] font-extrabold uppercase tracking-widest">
-                <FaStar size={10} />
-                {language === 'en' ? 'Highlights' : 'Destaques'}
-                <FaStar size={10} />
-              </span>
-              <span className="h-px w-12 bg-accent-green/40"></span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-4">
-            {featured.map((cert) => (
-              <div key={cert.id} className="relative bg-gradient-to-br from-primary-blue to-primary-dark border-2 border-accent-green rounded-xl px-5 py-4 shadow-[0_0_20px_rgba(0,229,255,0.2)] w-full max-w-[220px]">
-                {/* Badge */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                  <span className="inline-flex items-center gap-1 bg-accent-green text-primary-dark text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow tracking-widest uppercase">
-                    <FaStar size={8} />
-                    {language === 'en' ? cert.featuredLabel.en : cert.featuredLabel.pt}
+        <div className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((cert, index) => (
+            <Reveal key={cert.title} delay={index * 80}>
+              <Tilt>
+                <div data-spotlight className="relative h-full overflow-hidden rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/15 via-surface/70 to-accent2/10 p-5">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                    <FaStar size={9} />
+                    {cert.featured[language]}
                   </span>
+                  <h3 className="mt-4 text-base font-bold leading-snug">{titleOf(cert)}</h3>
+                  <p className="mt-2 text-sm font-semibold text-accent2">{cert.org}</p>
+                  <p className="mt-1 text-xs text-muted">
+                    {formatMonth(cert.date, language)}
+                    {cert.expires && ` · ${t('expira em', 'expires')} ${formatMonth(cert.expires, language)}`}
+                  </p>
                 </div>
-                <div className="flex flex-col items-center text-center mt-2 gap-1">
-                  <FaCertificate className="text-accent-green" size={22} />
-                  <h3 className="text-xs font-extrabold text-white leading-snug">
-                    {language === 'en' ? cert.titleEN : cert.titlePT}
-                  </h3>
-                  <p className="text-accent-green font-bold text-[10px] tracking-wide uppercase">{cert.organization}</p>
-                  <p className="text-gray-400 text-[10px]">{cert.date}</p>
+              </Tilt>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setCategory(item.id)}
+                aria-pressed={category === item.id}
+                className={`chip !px-4 !py-2 !text-sm transition-all hover:border-accent/50 hover:text-ink ${category === item.id ? 'chip-active shadow-lg shadow-accent/20' : ''}`}
+              >
+                {item.label[language]}
+                <span className="opacity-60">{countFor(item.id)}</span>
+              </button>
+            ))}
+          </div>
+          <label className="glass flex items-center gap-2 rounded-xl px-4 py-2.5 focus-within:border-accent/60 md:w-72">
+            <FaSearch className="text-muted" size={13} />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t('Buscar certificação ou emissor…', 'Search certification or issuer…')}
+              className="w-full bg-transparent text-sm outline-none placeholder:text-muted"
+            />
+          </label>
+        </Reveal>
+
+        {visible.length === 0 ? (
+          <p className="py-12 text-center text-muted">{t('Nenhuma certificação encontrada.', 'No certifications found.')}</p>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {visible.map((cert, index) => (
+              <div
+                key={cert.title}
+                data-spotlight
+                style={{ animationDelay: `${Math.min(index, 12) * 25}ms` }}
+                className="glass group flex animate-fade-up items-center gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+              >
+                <IssuerBadge name={cert.org} />
+                <div className="min-w-0">
+                  <h4 className="text-sm font-semibold leading-snug transition-colors group-hover:text-accent2">{titleOf(cert)}</h4>
+                  <p className="mt-0.5 truncate text-xs text-muted">
+                    {cert.org} · {formatMonth(cert.date, language)}
+                  </p>
                 </div>
               </div>
             ))}
-            </div>
           </div>
-        );
-      })()}
+        )}
 
-      {/* Group by organization (excluding featured) */}
-      {(() => {
-        const grouped = certifications
-          .filter((c) => !c.featured)
-          .reduce((acc, cert) => {
-            if (!acc[cert.organization]) acc[cert.organization] = [];
-            acc[cert.organization].push(cert);
-            return acc;
-          }, {});
-
-        return Object.entries(grouped).map(([org, certs]) => (
-          <div key={org} className="mb-10">
-            {/* Organization subtitle */}
-            <div className="flex items-center gap-3 mb-4">
-              <FaCertificate className="text-accent-green flex-shrink-0" size={18} />
-              <h3 className="text-lg font-bold text-accent-green tracking-wide uppercase">{org}</h3>
-              <div className="flex-1 h-px bg-accent-green/20"></div>
-            </div>
-
-            {/* Certs grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {certs.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="group bg-primary-blue rounded-lg px-4 py-3 border border-gray-700 hover:border-accent-green transition-all duration-300 cursor-pointer"
-                >
-                  <h4 className="text-sm font-semibold text-white leading-snug group-hover:text-accent-green transition-colors">
-                    {language === 'en' ? cert.titleEN : cert.titlePT}
-                  </h4>
-                </div>
-              ))}
-            </div>
+        {!searching && filtered.length > INITIAL_VISIBLE && (
+          <div className="mt-8 text-center">
+            <button onClick={() => setShowAll(!showAll)} className="btn-ghost">
+              <FaAward />
+              {showAll
+                ? t('Mostrar menos', 'Show less')
+                : t(`Ver todas as ${filtered.length} certificações`, `Show all ${filtered.length} certifications`)}
+            </button>
           </div>
-        ));
-      })()}
-
-      {/* Additional Info */}
-      <div className="mt-8 text-center">
-        <p className="text-gray-400 text-sm">
-          {language === 'en'
-            ? 'Complete list of professional certifications and continuous learning'
-            : 'Listagem completa de certificações profissionais e aprendizado contínuo'}
-        </p>
+        )}
       </div>
     </section>
   );

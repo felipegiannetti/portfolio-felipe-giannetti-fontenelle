@@ -1,289 +1,157 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaBars, FaTimes, FaFileAlt, FaMapMarkerAlt, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaBars, FaTimes, FaFileAlt, FaMoon, FaSun, FaSearch } from 'react-icons/fa';
+import { NAV } from '../data/profile';
 
-const Navbar = ({ language, setLanguage, setShowCurriculo }) => {
-  const [nav, setNav] = useState(false);
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+
+const Navbar = ({ language, setLanguage, theme, toggleTheme, setShowCurriculo, openPalette }) => {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [typedName, setTypedName] = useState('');
-  const typingRef = useRef(null);
-  const isHovered = useRef(false);
-  const currentLengthRef = useRef(0);
-  const fullName = 'Felipe Giannetti Fontenelle';
-
-  const startTyping = () => {
-    clearInterval(typingRef.current);
-    currentLengthRef.current = 0;
-    setTypedName('');
-    typingRef.current = setInterval(() => {
-      currentLengthRef.current++;
-      setTypedName(fullName.slice(0, currentLengthRef.current));
-      if (currentLengthRef.current >= fullName.length) {
-        clearInterval(typingRef.current);
-      }
-    }, 45);
-  };
-
-  const startErasing = () => {
-    clearInterval(typingRef.current);
-    typingRef.current = setInterval(() => {
-      currentLengthRef.current--;
-      setTypedName(fullName.slice(0, currentLengthRef.current));
-      if (currentLengthRef.current <= 0) {
-        clearInterval(typingRef.current);
-        setShowProfile(false);
-      }
-    }, 30);
-  };
-
-  const handleMouseEnter = () => {
-    isHovered.current = true;
-    setShowProfile(true);
-    startTyping();
-  };
-
-  const handleMouseLeave = () => {
-    isHovered.current = false;
-    startErasing();
-  };
-
-  const profileSummary = {
-    pt: {
-      role: 'Global Cybersecurity Operations',
-      company: 'Anglo American',
-      education: 'Eng. de Software – PUC Minas',
-      location: 'Belo Horizonte, MG',
-      bio: 'Estudante apaixonado por cibersegurança, desenvolvimento de software e inovação tecnológica. Fluente em inglês (C2).',
-    },
-    en: {
-      role: 'Global Cybersecurity Operations',
-      company: 'Anglo American',
-      education: 'Software Engineering – PUC Minas',
-      location: 'Belo Horizonte, MG',
-      bio: 'Student passionate about cybersecurity, software development and technological innovation. Fluent in English (C2).',
-    },
-  };
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-      setScrolled(scrollTop > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleClick = () => setNav(!nav);
+  // Scrollspy: highlight the section crossing the middle of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    ['home', ...NAV.map((item) => item.id)].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
-  const links = language === 'en' 
-    ? [
-        { id: 1, link: 'about', name: 'About Me' },
-        { id: 2, link: 'projects', name: 'Projects' },
-        { id: 3, link: 'experience', name: 'Experience' },
-        { id: 4, link: 'certifications', name: 'Certifications' },
-        { id: 5, link: 'contact', name: 'Contact' },
-      ]
-    : [
-        { id: 1, link: 'about', name: 'Sobre Mim' },
-        { id: 2, link: 'projects', name: 'Projetos' },
-        { id: 3, link: 'experience', name: 'Experiências' },
-        { id: 4, link: 'certifications', name: 'Certificações' },
-        { id: 5, link: 'contact', name: 'Contato' },
-      ];
+  const languageToggle = (
+    <div className="inline-flex rounded-full border border-line/15 bg-surface2/60 p-0.5 text-xs font-semibold">
+      {['en', 'pt'].map((code) => (
+        <button
+          key={code}
+          onClick={() => setLanguage(code)}
+          aria-pressed={language === code}
+          className={`rounded-full px-3 py-1.5 uppercase transition-colors ${
+            language === code ? 'bg-accent text-white shadow' : 'text-muted hover:text-ink'
+          }`}
+        >
+          {code}
+        </button>
+      ))}
+    </div>
+  );
+
+  const themeToggle = (
+    <button
+      onClick={toggleTheme}
+      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+      className="grid h-9 w-9 place-items-center rounded-full border border-line/15 bg-surface2/60 text-muted transition hover:text-ink hover:border-accent/60"
+    >
+      {theme === 'dark' ? <FaSun size={14} /> : <FaMoon size={14} />}
+    </button>
+  );
 
   return (
-    <nav
-      className="fixed top-0 left-0 z-50 transition-all duration-300"
-      style={{
-        width: 'calc(100% - (100vw - 100%))',
-        backgroundColor: '#05111f',
-        borderBottom: scrolled ? '1px solid rgba(0, 229, 255, 0.25)' : '1px solid rgba(0, 229, 255, 0.06)',
-        boxShadow: scrolled ? '0 2px 24px rgba(0, 0, 0, 0.8)' : 'none',
-      }}
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled ? 'border-b border-line/10 bg-canvas/80 backdrop-blur-md' : 'border-b border-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div
-            className="relative flex items-center gap-3 cursor-pointer select-none"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* FGF SVG Logo */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" className="logo-fgf flex-shrink-0">
-              <rect width="64" height="64" rx="12" fill="#0b1f3a"/>
-              <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="#00e5ff" strokeWidth="2"/>
-              <text
-                x="32" y="44"
-                textAnchor="middle"
-                fontFamily="monospace"
-                fontSize="22"
-                fontWeight="bold"
-                letterSpacing="1"
-                fill="#00e5ff"
-              >FGF</text>
-            </svg>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <a href="#home" className="group flex items-center gap-3" aria-label="Felipe Giannetti Fontenelle">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent via-accent3 to-accent2 font-display text-sm font-bold text-white shadow-lg shadow-accent/30 transition-transform group-hover:rotate-6 group-hover:scale-110">
+            FGF
+          </span>
+          <span className="hidden whitespace-nowrap font-display text-base font-semibold sm:block">Felipe Fontenelle</span>
+        </a>
 
-            {/* Typed name */}
-            {typedName && (
-              <span className="text-xl font-bold whitespace-nowrap overflow-hidden">
-                <span className="text-white">{typedName.slice(0, 6)}</span>
-                <span className="text-accent-green">{typedName.slice(6)}</span>
-                <span className="inline-block w-0.5 h-5 bg-accent-green ml-0.5 align-middle animate-pulse" />
-              </span>
-            )}
-
-            {showProfile && (
-              <div className="absolute top-full left-0 mt-3 w-72 bg-[#05111f] border border-accent-green/40 rounded-xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.7)] z-50 pointer-events-none">
-                {/* Arrow */}
-                <span className="absolute -top-2 left-6 border-4 border-transparent border-b-accent-green/40"></span>
-                {/* Photo + name */}
-                <div className="flex items-center gap-3 mb-3">
-                  <img
-                    src="/foto-perfil.jpg"
-                    alt="Felipe"
-                    className="w-12 h-12 rounded-full object-cover border-2 border-accent-green"
-                  />
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight">Felipe Giannetti Fontenelle</p>
-                    <p className="text-accent-green text-[11px] font-semibold">{profileSummary[language].role}</p>
-                    <p className="text-gray-400 text-[11px]">{profileSummary[language].company}</p>
-                  </div>
-                </div>
-                {/* Info */}
-                <div className="flex flex-col gap-1.5 mb-3 border-t border-gray-700 pt-2">
-                  <span className="flex items-center gap-2 text-gray-300 text-xs">
-                    <FaGraduationCap className="text-accent-green flex-shrink-0" size={11} />
-                    {profileSummary[language].education}
-                  </span>
-                  <span className="flex items-center gap-2 text-gray-300 text-xs">
-                    <FaMapMarkerAlt className="text-accent-green flex-shrink-0" size={11} />
-                    {profileSummary[language].location}
-                  </span>
-                </div>
-                <p className="text-gray-400 text-[11px] leading-relaxed border-t border-gray-700 pt-2">
-                  {profileSummary[language].bio}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-8">
-              {links.map(({ id, link, name }) => (
-                <li key={id}>
-                  <a
-                    href={`#${link}`}
-                    className="text-white hover:text-accent-green transition-colors duration-300 text-base font-medium"
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            {/* CV Button */}
-            <button
-              onClick={() => setShowCurriculo(true)}
-              className="flex items-center gap-2 bg-accent-green text-primary-dark px-4 py-2 rounded-lg font-semibold hover:bg-white transition-colors"
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
+          {NAV.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+                active === id ? 'text-ink' : 'text-muted hover:text-ink'
+              }`}
             >
-              <FaFileAlt size={16} />
-              {language === 'en' ? 'CV' : 'CV'}
-            </button>
+              {active === id && <span className="absolute inset-0 -z-10 rounded-full bg-accent/15 ring-1 ring-accent/30" />}
+              {label[language]}
+            </a>
+          ))}
+        </nav>
 
-            {/* Language Toggle */}
-            <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">
-              <button
-                onClick={() => setLanguage('en')}
-                className={`px-4 py-2 font-semibold transition-colors ${
-                  language === 'en'
-                    ? 'bg-accent-green text-primary-dark'
-                    : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setLanguage('pt')}
-                className={`px-4 py-2 font-semibold transition-colors ${
-                  language === 'pt'
-                    ? 'bg-accent-green text-primary-dark'
-                    : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                }`}
-              >
-                PT
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu Icon */}
-          <div onClick={handleClick} className="md:hidden cursor-pointer z-10 text-white">
-            {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-          </div>
-
-          {/* Mobile Menu */}
-          {nav && (
-            <ul className="absolute top-0 left-0 w-full h-screen bg-primary-blue flex flex-col justify-center items-center">
-              {links.map(({ id, link, name }) => (
-                <li key={id} className="py-6 text-3xl">
-                  <a
-                    href={`#${link}`}
-                    onClick={handleClick}
-                    className="text-white hover:text-accent-green transition-colors duration-300"
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))}
-              {/* CV Button Mobile */}
-              <li className="py-6">
-                <button
-                  onClick={() => {
-                    setShowCurriculo(true);
-                    handleClick();
-                  }}
-                  className="flex items-center gap-2 bg-accent-green text-primary-dark px-4 py-2 rounded-lg font-semibold text-lg hover:bg-white transition-colors"
-                >
-                  <FaFileAlt size={18} />
-                  {language === 'en' ? 'CV' : 'CV'}
-                </button>
-              </li>
-              {/* Language Toggle Mobile */}
-              <li className="py-6">
-                <div className="inline-flex rounded-lg overflow-hidden border-2 border-accent-green">
-                  <button
-                    onClick={() => setLanguage('en')}
-                    className={`px-4 py-2 font-semibold transition-colors ${
-                      language === 'en'
-                        ? 'bg-accent-green text-primary-dark'
-                        : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                    }`}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => setLanguage('pt')}
-                    className={`px-4 py-2 font-semibold transition-colors ${
-                      language === 'pt'
-                        ? 'bg-accent-green text-primary-dark'
-                        : 'bg-transparent text-accent-green hover:bg-primary-dark'
-                    }`}
-                  >
-                    PT
-                  </button>
-                </div>
-              </li>
-            </ul>
-          )}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={openPalette}
+            aria-label={language === 'en' ? 'Open command menu' : 'Abrir menu de comandos'}
+            className="hidden h-9 items-center gap-2 rounded-full border border-line/15 bg-surface2/60 px-3 text-xs text-muted transition hover:border-accent/60 hover:text-ink sm:inline-flex"
+          >
+            <FaSearch size={11} />
+            <kbd className="whitespace-nowrap font-sans">{isMac ? '⌘' : 'Ctrl'} K</kbd>
+          </button>
+          <div className="hidden sm:block">{themeToggle}</div>
+          <div className="hidden sm:block">{languageToggle}</div>
+          <button
+            onClick={() => setShowCurriculo(true)}
+            className="hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-accent/30 transition hover:-translate-y-0.5 sm:inline-flex"
+          >
+            <FaFileAlt size={13} />
+            CV
+          </button>
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+            aria-expanded={open}
+            className="grid h-10 w-10 place-items-center rounded-full border border-line/15 bg-surface2/60 xl:hidden"
+          >
+            {open ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
-    </nav>
+
+      {open && (
+        <div className="animate-pop-in border-t border-line/10 bg-canvas/95 px-4 pb-6 pt-4 xl:hidden">
+          <ul className="mx-auto flex max-w-6xl flex-col">
+            {NAV.map(({ id, label }) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  onClick={() => setOpen(false)}
+                  className={`block rounded-xl px-3 py-3 text-lg font-medium ${
+                    active === id ? 'bg-accent/15 text-ink' : 'text-muted'
+                  }`}
+                >
+                  {label[language]}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mx-auto mt-4 flex max-w-6xl flex-wrap items-center gap-3">
+            {languageToggle}
+            {themeToggle}
+            <button
+              onClick={() => {
+                setShowCurriculo(true);
+                setOpen(false);
+              }}
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white"
+            >
+              <FaFileAlt size={13} />
+              CV
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 

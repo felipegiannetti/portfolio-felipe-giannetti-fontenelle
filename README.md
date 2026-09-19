@@ -67,20 +67,21 @@ Este projeto foi desenvolvido como trabalho prático da disciplina de **Laborat�
 
 ## ✨ Funcionalidades Principais
 
-- 🌐 **Navegação Responsiva:** Menu adaptável para desktop e mobile com scroll suave
-- 🇧🇷 🇬🇧 **Bilíngue (PT/EN):** Suporte completo para português e inglês com toggle de idioma
-- 📄 **Visualizador de Currículo:** Modal pop-up para exibir e baixar currículo em PDF
-- 👤 **Seção Sobre Mim:** Apresentação profissional com cards informativos e animação de escrita
-- 🎓 **Certificações:** Grid minimalista com 30+ certificações organizadas por emissor
-- 📊 **Timeline de Projetos:** Apresentação visual de projetos em linha do tempo alternada com imagens
-- 💼 **Experiências Profissionais:** Cards com detalhes de trabalho, internships e freelances
-- 🛠 **Seção de Habilidades:** Showcase de tecnologias e competências principais
-- 📧 **Formulário de Contato:** Integrado com EmailJS para envio de mensagens sem back-end
-- 📱 **Links de Contato Direto:** WhatsApp, Email, LinkedIn e GitHub
-- 🎨 **Design Moderno:** Paleta de cores escura com destaque em ciano (`#00e5ff`)
-- ✍️ **Animação Typewriter:** Efeito de digitação no nome na Navbar e na seção About
-- 🔤 **Fonte Customizada:** Share Tech Mono (Google Fonts) para estética de terminal
-- ⚡ **Performance Otimizada:** Vite para build rápido e HMR instantâneo
+- 🌗 **Tema claro/escuro:** alternância com preferência salva (respeita o tema do sistema)
+- 🇧🇷 🇬🇧 **Bilíngue (PT/EN):** suporte completo aos dois idiomas, com preferência salva
+- ⌨️ **Paleta de comandos (Ctrl/⌘ + K):** navegação rápida, abrir currículo, trocar tema/idioma, copiar e-mail
+- 🧭 **Navegação inteligente:** barra fixa com scrollspy, barra de progresso de leitura e botão de voltar ao topo
+- ✍️ **Hero interativo:** texto que alterna entre áreas de atuação (Software, Full Stack, Cibersegurança, Dados & IA)
+- 🔢 **Estatísticas animadas** e cards com efeito *spotlight* que segue o cursor e *tilt* 3D
+- 💼 **Experiência em abas:** Anglo American (SOC), FG Consultoria, PUC Minas e Clube Chalezinho, com cargos e conquistas detalhados
+- 🚀 **Projetos com filtros:** por área (Web, IA & Dados, Cibersegurança, Robótica) e cards expansíveis
+- 🛠 **Skills por categoria:** carrossel de tecnologias + filtros (Front-end, Back-end, Dados & DevOps, Cibersegurança, Práticas)
+- 🎓 **41 certificações** com busca, filtros por categoria e ordenação por data (fonte: LinkedIn)
+- 🏆 **Destaques:** prêmio de trabalho de destaque (PUC Minas), McKinsey.org Forward Program e carrossel de publicações do LinkedIn
+- 📄 **Visualizador de currículo:** modal com PDF em PT/EN e download
+- 📧 **Formulário de contato:** EmailJS (sem back-end) + links diretos (WhatsApp, e-mail, LinkedIn, GitHub)
+- ♿ **Acessibilidade:** respeita `prefers-reduced-motion`, foco visível e navegação por teclado
+- ⚡ **Performance:** Vite, sem bibliotecas de animação (IntersectionObserver + CSS)
 
 ---
 
@@ -101,9 +102,9 @@ Este projeto foi desenvolvido como trabalho prático da disciplina de **Laborat�
 
 | Tecnologia | Uso |
 |---|---|
-| **Share Tech Mono** | Fonte via Google Fonts — estética de terminal |
-| **CSS Animations** | Keyframes personalizados para glow e typewriter |
-| **Tailwind Custom Colors** | `primary-dark` `#050b16`, `primary-blue` `#0b1f3a`, `accent-green` `#00e5ff` |
+| **Inter + Space Grotesk** | Fontes via Google Fonts |
+| **Design tokens (CSS variables)** | Cores `canvas`, `surface`, `ink`, `muted`, `accent`, `accent2`, `accent3` com tema claro/escuro |
+| **CSS Animations** | Keyframes para blobs de fundo, marquee, float e reveal on scroll |
 
 ### ⚙️ Ferramentas de Build
 
@@ -150,12 +151,16 @@ O projeto segue uma arquitetura **componente-driven** típica de aplicações Re
 
 | Componente | Responsabilidade | Props |
 |---|---|---|
-| **Navbar** | Navegação, toggle idioma, botão CV, animação typewriter hover | `language`, `setLanguage`, `setShowCurriculo` |
-| **About** | Apresentação pessoal, modal de CV, animação typewriter | `language`, `showCurriculo`, `setShowCurriculo` |
-| **Certifications** | Grid de certificações agrupadas por emissor | `language` |
-| **Projects** | Timeline alternada com imagens e links | `language` |
-| **Experience** | Cards de experiências + grid de habilidades | `language` |
+| **Navbar** | Navegação com scrollspy, tema, idioma, CV e paleta de comandos | `language`, `theme`, `setLanguage`, `toggleTheme`, `setShowCurriculo`, `openPalette` |
+| **Hero** | Apresentação com texto rotativo e foto | `language`, `setShowCurriculo` |
+| **About** | Texto do LinkedIn, formação, idiomas e estatísticas animadas | `language` |
+| **Experience** | Experiências em abas com cargos e conquistas | `language` |
+| **Projects** | Grid com filtro por área e cards expansíveis | `language` |
+| **Skills** | Carrossel de tecnologias + filtro por categoria | `language` |
+| **Certifications** | Destaques + busca/filtros das 41 certificações | `language` |
+| **Highlights** | Reconhecimentos e carrossel de posts do LinkedIn | `language` |
 | **Contact** | Formulário EmailJS + links sociais | `language` |
+| **CvModal / CommandPalette** | Modal do currículo e menu Ctrl/⌘ + K | — |
 
 ### 🔄 Padrões de Design Adotados
 
@@ -295,15 +300,23 @@ portifolio-lab-01/
 └── src/                      # 📁 Código-fonte
     ├── App.jsx               # 🎯 Componente raiz (gerencia estado global)
     ├── main.jsx              # 🚀 Ponto de entrada
-    ├── index.css             # 🎨 Estilos globais + Tailwind + animações CSS
+    ├── index.css             # 🎨 Tokens de tema, Tailwind e animações CSS
+    ├── hooks.js              # 🪝 useInView, useCountUp, useRotatingText, storage
+    ├── data/profile.js       # 🗂 Contatos e itens de navegação
     │
     └── components/           # 🧱 Componentes reutilizáveis
-        ├── Navbar.jsx        # 🔝 Navegação principal + typewriter hover
-        ├── About.jsx         # 👤 Seção Sobre Mim + modal de CV
-        ├── Certifications.jsx # 🎓 Grid de certificações
-        ├── Projects.jsx      # 📊 Timeline de projetos
-        ├── Experience.jsx    # 💼 Experiências + habilidades
-        └── Contact.jsx       # 📧 Formulário EmailJS + links sociais
+        ├── Navbar.jsx        # 🔝 Navegação, scrollspy, tema e idioma
+        ├── Hero.jsx          # 🏠 Apresentação com texto rotativo
+        ├── About.jsx         # 👤 Sobre mim, formação, idiomas, estatísticas
+        ├── Experience.jsx    # 💼 Experiências em abas
+        ├── Projects.jsx      # 🚀 Projetos com filtros
+        ├── Skills.jsx        # 🛠 Skills por categoria
+        ├── Certifications.jsx # 🎓 41 certificações com busca e filtros
+        ├── Highlights.jsx    # 🏆 Reconhecimentos + posts do LinkedIn
+        ├── Contact.jsx       # 📧 Formulário EmailJS + links sociais
+        ├── CvModal.jsx       # 📄 Modal do currículo
+        ├── CommandPalette.jsx # ⌨️ Menu Ctrl/⌘ + K
+        └── ui.jsx            # 🧩 Reveal, SectionHeader, Tilt, formatMonth
 ```
 
 ---
@@ -314,11 +327,11 @@ portifolio-lab-01/
 
 | Seção | Descrição |
 |---|---|
-| **Navbar** | Navegação fixa com toggle PT/EN, botão CV e animação typewriter ao hover no logo |
-| **Sobre Mim** | Apresentação com foto, animação de escrita do nome, cards de info e modal de currículo PDF |
-| **Certificações** | Grid responsivo com 30+ certificações (IBM, Amazon, Rocketseat, entre outros) |
-| **Projetos** | Timeline visual alternada com imagens, descrição, tecnologias e link GitHub |
-| **Experiências** | Cards de experiências profissionais + grid de habilidades técnicas |
+| **Navbar** | Navegação fixa com scrollspy, tema claro/escuro, toggle PT/EN, botão CV e paleta de comandos |
+| **Hero / Sobre** | Apresentação com texto rotativo, foto, formação, idiomas e estatísticas animadas |
+| **Certificações** | 41 certificações (Skillsoft, Cybrary, IBM, Amazon, SpecterOps, Claroty, entre outras) com busca e filtros |
+| **Projetos** | Grid filtrável por área, com imagens, descrição, tecnologias e link GitHub |
+| **Experiências / Skills** | Experiências em abas + skills por categoria |
 | **Contato** | Formulário integrado com EmailJS + links diretos (WhatsApp, Email, LinkedIn, GitHub) |
 
 ---
