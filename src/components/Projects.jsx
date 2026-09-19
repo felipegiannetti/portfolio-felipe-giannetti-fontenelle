@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaLock, FaBrain, FaGraduationCap, FaShieldAlt, FaChartLine, FaRobot, FaStar } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaGithub, FaExternalLinkAlt, FaLock, FaBrain, FaGraduationCap, FaShieldAlt, FaChartLine, FaRobot, FaStar, FaTimes } from 'react-icons/fa';
 import { Reveal, SectionHeader } from './ui';
 
 const CATEGORIES = [
@@ -15,8 +15,8 @@ const PROJECTS = [
     id: 'ai-platform',
     name: { pt: 'Plataforma de Automação para Consultoria Financeira e Estratégica com IA', en: 'AI-Powered Financial & Strategic Consulting Platform' },
     description: {
-      pt: 'Plataforma corporativa completa que automatiza fluxos de consultoria financeira e estratégica. A solução contempla reestruturação empresarial, valuation, análise de riscos de investimento e cálculos de custo de capital, integrando mais de 10 APIs externas para agregação de dados e geração automática de relatórios. Recursos baseados em IA produzem recomendações contextualizadas e adaptam as análises a cada projeto, enquanto uma arquitetura Full Stack escalável sustenta testes, implantação em nuvem e evolução contínua do produto.',
-      en: 'End-to-end enterprise platform that automates financial and strategic consulting workflows. The solution supports corporate restructuring, business valuation, investment risk analysis, and cost-of-capital calculations, integrating more than 10 external APIs for data aggregation and automated reporting. AI-powered capabilities generate contextual recommendations and adapt analyses to each project, while a scalable full-stack architecture supports testing, cloud deployment, and continuous product evolution.',
+      pt: 'Plataforma corporativa completa que automatiza fluxos de consultoria financeira e estratégica. A solução contempla reestruturação empresarial, valuation, análise de riscos de investimento e cálculos de custo de capital, integrando mais de 100 APIs externas para agregação de dados e geração automática de relatórios. Recursos baseados em IA produzem recomendações contextualizadas e adaptam as análises a cada projeto, enquanto uma arquitetura Full Stack escalável sustenta testes, implantação em nuvem e evolução contínua do produto.',
+      en: 'End-to-end enterprise platform that automates financial and strategic consulting workflows. The solution supports corporate restructuring, business valuation, investment risk analysis, and cost-of-capital calculations, integrating more than 100 external APIs for data aggregation and automated reporting. AI-powered capabilities generate contextual recommendations and adapt analyses to each project, while a scalable full-stack architecture supports testing, cloud deployment, and continuous product evolution.',
     },
     tech: ['Java', 'Spring Boot', 'Python', 'React', 'TypeScript', 'PostgreSQL', 'REST APIs', 'AI Integration', 'Docker', 'Cloud'],
     cats: ['ai', 'web'],
@@ -156,15 +156,86 @@ const ProjectVisual = ({ project }) => {
   );
 };
 
-const ProjectCard = ({ project, language }) => {
-  const [expanded, setExpanded] = useState(false);
+const MAX_TECH = 5;
+
+const ProjectLinks = ({ project, language }) => {
   const t = (pt, en) => (language === 'en' ? en : pt);
-  const description = project.description[language];
-  const isLong = description.length > 220;
+  return (
+    <>
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-ghost !px-4 !py-2 !text-xs">
+          <FaGithub />
+          GitHub
+        </a>
+      )}
+      {project.live && (
+        <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-primary !px-4 !py-2 !text-xs">
+          <FaExternalLinkAlt size={10} />
+          Live
+        </a>
+      )}
+      {project.internal && (
+        <span className="chip whitespace-nowrap !px-3 !py-1.5">
+          <FaLock size={10} />
+          {t('Projeto corporativo interno', 'Internal corporate project')}
+        </span>
+      )}
+    </>
+  );
+};
+
+const ProjectModal = ({ project, language, onClose }) => {
+  const t = (pt, en) => (language === 'en' ? en : pt);
+
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
 
   return (
-    <article data-spotlight className="glass group flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10">
-      <div className="relative overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.name[language]}>
+      <div className="glass flex max-h-[90vh] w-full max-w-2xl animate-pop-in flex-col overflow-hidden rounded-2xl bg-surface shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-start justify-between gap-4 border-b border-line/10 px-6 py-4">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-widest text-accent2">{project.date}</span>
+            <h3 className="mt-1 text-xl font-bold leading-snug">{project.name[language]}</h3>
+          </div>
+          <button onClick={onClose} aria-label={t('Fechar', 'Close')} className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted transition hover:bg-line/10 hover:text-ink">
+            <FaTimes />
+          </button>
+        </div>
+        <div className="overflow-y-auto px-6 py-5">
+          <p className="leading-relaxed text-muted">{project.description[language]}</p>
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {project.tech.map((tech) => (
+              <span key={tech} className="chip">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 border-t border-line/10 px-6 py-4">
+          <ProjectLinks project={project} language={language} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Every card has the same fixed structure so the whole grid stays the same size.
+const ProjectCard = ({ project, language, onOpen }) => {
+  const t = (pt, en) => (language === 'en' ? en : pt);
+  const extraTech = project.tech.length - MAX_TECH;
+
+  return (
+    <article data-spotlight className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10">
+      <div className="relative shrink-0 overflow-hidden">
         <ProjectVisual project={project} />
         <span className="absolute right-3 top-3 rounded-full bg-canvas/80 px-3 py-1 text-xs font-semibold backdrop-blur">{project.date}</span>
         {project.featured && (
@@ -182,41 +253,23 @@ const ProjectCard = ({ project, language }) => {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-bold leading-snug">{project.name[language]}</h3>
-        <p className={`mt-3 text-sm leading-relaxed text-muted ${expanded ? '' : 'line-clamp-4'}`}>{description}</p>
-        {isLong && (
-          <button onClick={() => setExpanded(!expanded)} className="mt-2 self-start text-xs font-semibold text-accent2 hover:underline">
-            {expanded ? t('Ver menos', 'Show less') : t('Ler mais', 'Read more')}
-          </button>
-        )}
+        <h3 className="line-clamp-2 h-[3.25rem] text-lg font-bold leading-snug">{project.name[language]}</h3>
+        <p className="mt-3 line-clamp-4 h-[5.7rem] text-sm leading-relaxed text-muted">{project.description[language]}</p>
+        <button onClick={() => onOpen(project)} className="mt-2 self-start text-xs font-semibold text-accent2 hover:underline">
+          {t('Ler mais', 'Read more')}
+        </button>
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.tech.map((tech) => (
+        <div className="mt-4 flex h-14 flex-wrap content-start gap-1.5 overflow-hidden">
+          {project.tech.slice(0, MAX_TECH).map((tech) => (
             <span key={tech} className="chip !px-2.5 !py-0.5 !text-[11px]">
               {tech}
             </span>
           ))}
+          {extraTech > 0 && <span className="chip !px-2.5 !py-0.5 !text-[11px]">+{extraTech}</span>}
         </div>
 
-        <div className="mt-auto flex flex-wrap gap-2 pt-5">
-          {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-ghost !px-4 !py-2 !text-xs">
-              <FaGithub />
-              GitHub
-            </a>
-          )}
-          {project.live && (
-            <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-primary !px-4 !py-2 !text-xs">
-              <FaExternalLinkAlt size={10} />
-              Live
-            </a>
-          )}
-          {project.internal && (
-            <span className="chip !px-3 !py-1.5">
-              <FaLock size={10} />
-              {t('Projeto corporativo interno', 'Internal corporate project')}
-            </span>
-          )}
+        <div className="mt-auto flex h-[3.5rem] items-end gap-2">
+          <ProjectLinks project={project} language={language} />
         </div>
       </div>
     </article>
@@ -225,6 +278,7 @@ const ProjectCard = ({ project, language }) => {
 
 const Projects = ({ language }) => {
   const [category, setCategory] = useState('all');
+  const [selected, setSelected] = useState(null);
   const t = (pt, en) => (language === 'en' ? en : pt);
   const visible = PROJECTS.filter((project) => category === 'all' || project.cats.includes(category));
 
@@ -253,13 +307,15 @@ const Projects = ({ language }) => {
           ))}
         </Reveal>
 
-        <div key={category} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div key={category} className="grid auto-rows-fr gap-6 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((project, index) => (
-            <div key={project.id} className="animate-fade-up" style={{ animationDelay: `${index * 60}ms` }}>
-              <ProjectCard project={project} language={language} />
+            <div key={project.id} className="h-full animate-fade-up" style={{ animationDelay: `${index * 60}ms` }}>
+              <ProjectCard project={project} language={language} onOpen={setSelected} />
             </div>
           ))}
         </div>
+
+        {selected && <ProjectModal project={selected} language={language} onClose={() => setSelected(null)} />}
       </div>
     </section>
   );

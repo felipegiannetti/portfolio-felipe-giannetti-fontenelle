@@ -54,7 +54,7 @@ const EXPERIENCES = [
           pt: [
             'Liderou o desenvolvimento completo da plataforma interna de consultoria financeira e estratégica baseada em IA: arquitetura, backend, integrações de API, testes, implantação e melhoria contínua.',
             'Projetou funcionalidades inteligentes para reestruturação empresarial, valuation, análise de risco de investimento e custo de capital, usando IA para automatizar fluxos analíticos complexos.',
-            'Integrou mais de 10 APIs externas para agregação de dados, processamento inteligente e geração automática de relatórios.',
+            'Integrou mais de 100 APIs externas para agregação de dados, processamento inteligente e geração automática de relatórios.',
             'Desenvolveu serviços de backend escaláveis e soluções de automação focados em desempenho, manutenibilidade e eficiência.',
             'Lidera a arquitetura, o desenvolvimento, a implantação e a manutenção do site corporativo.',
             'Atua com clientes e stakeholders no levantamento de requisitos, no desenho de soluções técnicas e na identificação de melhorias de processo.',
@@ -63,7 +63,7 @@ const EXPERIENCES = [
           en: [
             "Led the end-to-end development of the internal AI-powered financial and strategic consulting platform: architecture, backend, API integrations, testing, deployment and continuous improvement.",
             'Designed intelligent features for business restructuring, company valuation, investment risk analysis and cost-of-capital calculations, using AI to automate complex analytical workflows.',
-            'Integrated 10+ external APIs for data aggregation, intelligent processing and automated report generation.',
+            'Integrated 100+ external APIs for data aggregation, intelligent processing and automated report generation.',
             'Built scalable backend services and automation solutions focused on performance, maintainability and business efficiency.',
             "Leads the architecture, development, deployment and maintenance of the company's corporate website.",
             'Partners with clients and stakeholders to gather requirements, design technical solutions and identify process improvements.',

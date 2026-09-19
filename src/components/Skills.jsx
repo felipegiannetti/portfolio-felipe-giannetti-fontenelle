@@ -36,15 +36,15 @@ const SKILLS = [
   { name: 'PostgreSQL', icon: <SiPostgresql />, color: '#4169E1', level: 3, cats: ['data', 'backend'] },
   { name: 'MySQL', icon: <SiMysql />, color: '#4479A1', level: 3, cats: ['data', 'backend'] },
   { name: 'Git / GitHub', icon: <SiGithub />, color: null, level: 3, cats: ['data'] },
-  { name: 'Docker', icon: <SiDocker />, color: '#2496ED', level: 2, cats: ['data'] },
-  { name: 'Power BI', icon: <FaChartBar />, color: '#F2C811', level: 2, cats: ['data'] },
+  { name: 'Docker', icon: <SiDocker />, color: '#2496ED', level: 3, cats: ['data'] },
+  { name: 'Power BI', icon: <FaChartBar />, color: '#F2C811', level: 3, cats: ['data'] },
   { name: 'C', icon: <FaTerminal />, color: '#A8B9CC', level: 2, cats: ['backend'] },
-  { name: 'Cloud Deployment', icon: <SiGooglecloud />, color: '#4285F4', level: 2, cats: ['data', 'practices'] },
+  { name: 'Cloud Deployment', icon: <SiGooglecloud />, color: '#4285F4', level: 3, cats: ['data', 'practices'] },
   { name: 'SIEM', icon: <FaSearch />, color: '#7c5cff', level: 2, cats: ['security'] },
   { name: 'Microsoft Sentinel', icon: <FaShieldAlt />, color: '#0078D4', level: 2, cats: ['security'] },
   { name: 'Google SecOps', icon: <FaShieldAlt />, color: '#4285F4', level: 2, cats: ['security'] },
   { name: 'CrowdStrike', icon: <FaUserShield />, color: '#FC0000', level: 2, cats: ['security'] },
-  { name: 'Claroty (OT)', icon: <FaCogs />, color: '#22d3ee', level: 2, cats: ['security'] },
+  { name: 'Claroty (OT)', icon: <FaCogs />, color: '#22d3ee', level: 3, cats: ['security'] },
   { name: 'Qualys', icon: <FaBug />, color: '#ED2E26', level: 2, cats: ['security'] },
   { name: 'Active Directory', icon: <FaKey />, color: '#0078D4', level: 2, cats: ['security'] },
   { name: 'Threat Detection', icon: <FaSearch />, color: '#f472b6', level: 2, cats: ['security'] },
@@ -54,11 +54,14 @@ const SKILLS = [
   { name: 'REST APIs', icon: <FaPlug />, color: '#22d3ee', level: 3, cats: ['practices', 'backend'] },
   { name: 'Full-Stack Dev', icon: <FaServer />, color: '#f472b6', level: 3, cats: ['practices'] },
   { name: 'AI Integration', icon: <FaRobot />, color: '#7c5cff', level: 3, cats: ['practices'] },
-  { name: 'Business Intelligence', icon: <FaChartLine />, color: '#F2C811', level: 2, cats: ['practices', 'data'] },
-  { name: 'UI/UX', icon: <FaPalette />, color: '#f472b6', level: 2, cats: ['practices', 'frontend'] },
+  { name: 'Business Intelligence', icon: <FaChartLine />, color: '#F2C811', level: 3, cats: ['practices', 'data'] },
+  { name: 'UI/UX', icon: <FaPalette />, color: '#f472b6', level: 3, cats: ['practices', 'frontend'] },
   { name: 'Leadership', icon: <FaUsers />, color: '#22d3ee', level: 3, cats: ['practices'] },
   { name: 'Prompt Engineering', icon: <FaLightbulb />, color: '#F2C811', level: 3, cats: ['practices'] },
 ];
+
+// Advanced first, then intermediate, then beginner (stable, so the order above is kept within a level).
+SKILLS.sort((a, b) => b.level - a.level);
 
 const MARQUEE = SKILLS.filter((skill) => skill.cats.includes('frontend') || skill.cats.includes('backend') || skill.name === 'Docker');
 

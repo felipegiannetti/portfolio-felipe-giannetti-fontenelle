@@ -28,7 +28,7 @@ const CONTENT = {
     stats: [
       { value: 41, suffix: '', label: 'certificações' },
       { value: 20, suffix: '+', label: 'alunos mentorados' },
-      { value: 10, suffix: '+', label: 'APIs integradas' },
+      { value: 100, suffix: '+', label: 'APIs integradas' },
       { value: 15, suffix: '', label: 'pessoas lideradas' },
     ],
   },
@@ -56,7 +56,7 @@ const CONTENT = {
     stats: [
       { value: 41, suffix: '', label: 'certifications' },
       { value: 20, suffix: '+', label: 'students mentored' },
-      { value: 10, suffix: '+', label: 'APIs integrated' },
+      { value: 100, suffix: '+', label: 'APIs integrated' },
       { value: 15, suffix: '', label: 'people led' },
     ],
   },
